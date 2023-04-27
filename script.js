@@ -4,4 +4,5 @@ window.addEventListener("load", start);
 
 function start() {
   console.log("js in running");
+  console.log("hej");
 }
