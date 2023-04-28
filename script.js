@@ -6,6 +6,9 @@
 
 window.addEventListener("load", start);
 
+const lotrDatabase =
+  "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
+
 function start() {
   console.log("js in running");
   // getJSON()
@@ -16,15 +19,15 @@ function start() {
 
 function getJSON(params) {
   // LAV EN FIREBASE SOM VI KAN HENTE FRA
-  prepareData()
-  return
+  prepareData();
+  return;
 }
 function prepareData(params) {
-  return
+  return;
 }
 
 function searchBarChanged(input) {
-  filterBySearch(input)
+  filterBySearch(input);
 }
 
 function filterBySearch(params) {
@@ -47,27 +50,25 @@ function filterByXX(params) {
 
 function showPostsAll(array) {
   // appendchild()
-    for (const post of array) {
-    }
+  for (const post of array) {
+  }
 }
 function showPost(post) {
   // document.querySelector("#deleteBtn").addEventListener("click",deleteButtonClickedOpenModal)
   // document.querySelector("#updateBtn").addEventListener("click",updateButtonClicked)
   function updateButtonClicked(params) {
-    updatePost()
+    updatePost();
   }
   function deleteButtonClickedOpenModal(params) {
-    deletePost()
+    deletePost();
   }
 }
 
-function createPostModal(params) {
-  
-}
+function createPostModal(params) {}
 function createNewPost(params) {
-// getUpdatedFirebase()
+  // getUpdatedFirebase()
 }
- 
+
 function updatePost(params) {
   // getUpdatedFirebase()
 }
@@ -75,14 +76,8 @@ function deletePost(params) {
   // getUpdatedFirebase()
 }
 function getUpdatedFirebase(params) {
-  showPostsAll()
+  showPostsAll();
 }
-function name(params) {
-  
-}
-function name(params) {
-  
-}
-function name(params) {
-  
-}
+function name(params) {}
+function name(params) {}
+function name(params) {}
