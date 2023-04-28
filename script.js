@@ -75,8 +75,9 @@ function updatePost(params) {
 function deletePost(params) {
   // getUpdatedFirebase()
 }
-function getUpdatedFirebase(params) {
-  showPostsAll();
+async function getUpdatedFirebase(params) {
+const posts = await getJSON();
+showPostsAll(posts)
 }
 function name(params) {}
 function name(params) {}
