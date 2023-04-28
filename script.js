@@ -6,15 +6,17 @@
 
 window.addEventListener("load", start);
 
-const lotrDatabase = "https://test-project-8f8dd-default-rtdb.europe-west1.firebasedatabase.app";
+// const lotrDatabase = "https://test-project-8f8dd-default-rtdb.europe-west1.firebasedatabase.app";
 let posts = [];
-// const lotrDatabase =
-//   "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
+const lotrDatabase =
+  "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function start() {
   console.log("js in running");
-  getJSON(lotrDatabase, "users")
+  // getJSON(lotrDatabase, "users")
+
   // showPosts()
+
   // document.querySelector("#????").addEventListener("keyup",searchBarChanged)
   // document.querySelector("#????").addEventListener("search",searchBarChanged)
 }
@@ -22,24 +24,30 @@ async function start() {
 // getJSON(lotrDatabase, "characters")
 
 async function getJSON(URL, source) {
-  // LAV EN FIREBASE SOM VI KAN HENTE FRA
+  // Fetcher og laver om til javascript objekt
   const fireBaseObjects = await fetch(`${URL}/${source}.json`)
+  // const fireBaseObjects = await fetch(`${URL}.json`)
   const fetchedObjectes = await fireBaseObjects.json()
-  console.log(fetchedObjectes)
+  
+  // Laver objekt-inde-i-objekt-listen om til et egentligt array
   const objectsToArray = prepareData(fetchedObjectes)
-  // prepareData();
-  // return objectsToArray;
+  
+  // Gemmer værdien i den globale variabel og returnerer værdien
+  posts = objectsToArray
+  console.log(posts)
+  return objectsToArray;
 }
 
-async function prepareData(listOfObjects) {
+function prepareData(listOfObjects) {
   const arrayFromObjects = []
-  console.log(listOfObjects)
+  
+  // looper igennem objektlisten, giver dem et id og pusher dem til det tomme array
   for (const object in listOfObjects) {
     const post = listOfObjects[object]
     post.id = object
     arrayFromObjects.push(post)
   }
-  console.log(arrayFromObjects)
+
   return arrayFromObjects
 }
 
