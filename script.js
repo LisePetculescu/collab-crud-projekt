@@ -10,19 +10,19 @@ const lotrDatabase =
   "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
 function start() {
-  console.log("js in running");
+  console.log("js is running");
   // getJSON()
   // showPosts()
   // document.querySelector("#????").addEventListener("keyup",searchBarChanged)
   // document.querySelector("#????").addEventListener("search",searchBarChanged)
 }
 
-function getJSON(params) {
+function getJSON(params) { // buster
   // LAV EN FIREBASE SOM VI KAN HENTE FRA
   prepareData();
   return;
 }
-function prepareData(params) {
+function prepareData(params) { // buster
   return;
 }
 
