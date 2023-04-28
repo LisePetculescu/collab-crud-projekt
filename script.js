@@ -11,10 +11,8 @@ let posts = [];
 const lotrDatabase =
   "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
-function start() {
-  console.log("js is running");
-  // getJSON()
   // https://lotr-characters-default-rtdb.europe-west1.firebasedatabase.app/
+
 
 async function start() {
   console.log("js in running");
