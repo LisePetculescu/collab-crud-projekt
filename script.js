@@ -9,6 +9,8 @@ window.addEventListener("load", start);
 const lotrDatabase =
   "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
+  // https://lotr-characters-default-rtdb.europe-west1.firebasedatabase.app/
+
 function start() {
   console.log("js in running");
   // getJSON()
