@@ -6,16 +6,14 @@
 
 window.addEventListener("load", start);
 
-// const lotrDatabase = "https://test-project-8f8dd-default-rtdb.europe-west1.firebasedatabase.app";
 let posts = [];
-const lotrDatabase =
-  "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
-
-  // https://lotr-characters-default-rtdb.europe-west1.firebasedatabase.app/
+const lotrDatabase = "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function start() {
   console.log("js in running");
-  // getJSON(lotrDatabase, "users")
+
+  // Opdaterer den globale variabel til posts-arrayet
+  posts = await getJSON(lotrDatabase, "posts");
 
   // showPosts()
 
@@ -23,38 +21,32 @@ async function start() {
   // document.querySelector("#????").addEventListener("search",searchBarChanged)
 }
 
-// getJSON(lotrDatabase, "characters")
-
 async function getJSON(URL, source) {
   // Fetcher og laver om til javascript objekt
-  const fireBaseObjects = await fetch(`${URL}/${source}.json`)
-  // const fireBaseObjects = await fetch(`${URL}.json`)
-  const fetchedObjectes = await fireBaseObjects.json()
-  
+  const fireBaseObjects = await fetch(`${URL}/${source}.json`);
+  const fetchedObjectes = await fireBaseObjects.json();
+
   // Laver objekt-inde-i-objekt-listen om til et egentligt array
-  const objectsToArray = prepareData(fetchedObjectes)
-  
-  // Gemmer værdien i den globale variabel og returnerer værdien
-  posts = objectsToArray
-  console.log(posts)
+  const objectsToArray = prepareData(fetchedObjectes);
+
   return objectsToArray;
 }
 
 function prepareData(listOfObjects) {
-  const arrayFromObjects = []
-  
+  const arrayFromObjects = [];
+
   // looper igennem objektlisten, giver dem et id og pusher dem til det tomme array
   for (const object in listOfObjects) {
-    const post = listOfObjects[object]
-    post.id = object
-    arrayFromObjects.push(post)
+    const post = listOfObjects[object];
+    post.id = object;
+    arrayFromObjects.push(post);
   }
 
-  return arrayFromObjects
+  return arrayFromObjects;
 }
 
 function searchBarChanged(input) {
-  filterBySearch(input);
+  // filterBySearch(input);
 }
 
 function filterBySearch(params) {
@@ -62,18 +54,14 @@ function filterBySearch(params) {
 }
 
 function sortByX(params) {
+  // If statements for de forskellige parametre
   // showPostsAll()
 }
-function sortByXX(params) {
+function filterByX(params) {
+  // If statements for de forskellige parametre
   // showPostsAll()
 }
 
-function filterByX(params) {
-  // showPostsAll()
-}
-function filterByXX(params) {
-  // showPostsAll()
-}
 
 function showPostsAll(array) {
   // appendchild()
@@ -103,8 +91,8 @@ function deletePost(params) {
   // getUpdatedFirebase()
 }
 async function getUpdatedFirebase(params) {
-const posts = await getJSON();
-showPostsAll(posts)
+  const posts = await getJSON();
+  showPostsAll(posts);
 }
 function name(params) {}
 function name(params) {}
