@@ -11,8 +11,7 @@ let posts = [];
 const lotrDatabase =
   "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
-  // https://lotr-characters-default-rtdb.europe-west1.firebasedatabase.app/
-
+// https://lotr-characters-default-rtdb.europe-west1.firebasedatabase.app/
 
 async function start() {
   console.log("js in running");
@@ -24,41 +23,34 @@ async function start() {
   // document.querySelector("#????").addEventListener("search",searchBarChanged)
 }
 
-function getJSON(params) { // buster
-  // LAV EN FIREBASE SOM VI KAN HENTE FRA
-  prepareData();
-  return;
-}
-function prepareData(params) { // buster
-  return;
 // getJSON(lotrDatabase, "characters")
 
 async function getJSON(URL, source) {
   // Fetcher og laver om til javascript objekt
-  const fireBaseObjects = await fetch(`${URL}/${source}.json`)
+  const fireBaseObjects = await fetch(`${URL}/${source}.json`);
   // const fireBaseObjects = await fetch(`${URL}.json`)
-  const fetchedObjectes = await fireBaseObjects.json()
-  
+  const fetchedObjectes = await fireBaseObjects.json();
+
   // Laver objekt-inde-i-objekt-listen om til et egentligt array
-  const objectsToArray = prepareData(fetchedObjectes)
-  
+  const objectsToArray = prepareData(fetchedObjectes);
+
   // Gemmer værdien i den globale variabel og returnerer værdien
-  posts = objectsToArray
-  console.log(posts)
+  posts = objectsToArray;
+  console.log(posts);
   return objectsToArray;
 }
 
 function prepareData(listOfObjects) {
-  const arrayFromObjects = []
-  
+  const arrayFromObjects = [];
+
   // looper igennem objektlisten, giver dem et id og pusher dem til det tomme array
   for (const object in listOfObjects) {
-    const post = listOfObjects[object]
-    post.id = object
-    arrayFromObjects.push(post)
+    const post = listOfObjects[object];
+    post.id = object;
+    arrayFromObjects.push(post);
   }
 
-  return arrayFromObjects
+  return arrayFromObjects;
 }
 
 function searchBarChanged(input) {
@@ -111,8 +103,8 @@ function deletePost(params) {
   // getUpdatedFirebase()
 }
 async function getUpdatedFirebase(params) {
-const posts = await getJSON();
-showPostsAll(posts)
+  const posts = await getJSON();
+  showPostsAll(posts);
 }
 function name(params) {}
 function name(params) {}
