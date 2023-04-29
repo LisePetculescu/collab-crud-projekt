@@ -15,10 +15,9 @@ async function start() {
   // Opdaterer den globale variabel til posts-arrayet
   posts = await getJSON(lotrDatabase, "posts");
 
+  document.querySelector("#searchBar").addEventListener("keyup", searchBarChanged);
+  document.querySelector("#searchBar").addEventListener("search", searchBarChanged);
   // showPosts()
-
-  // document.querySelector("#????").addEventListener("keyup",searchBarChanged)
-  // document.querySelector("#????").addEventListener("search",searchBarChanged)
 }
 
 async function getJSON(URL, source) {
@@ -45,12 +44,21 @@ function prepareData(listOfObjects) {
   return arrayFromObjects;
 }
 
-function searchBarChanged(input) {
-  // filterBySearch(input);
+function searchBarChanged(event) {
+  const valueToSearchFor = event.target.value.toLowerCase();
+  console.log(valueToSearchFor);
+  const filteredList = filterBySearch(valueToSearchFor);
+  console.log(filteredList);
+  // showPostsAll(filteredList)
 }
 
-function filterBySearch(params) {
-  // showPostsAll(array)
+function filterBySearch(valueToSearchFor) {
+  const filteredList = posts.filter(checkName);
+  function checkName(post) {
+    const lowerCasePosts = post.name.toLowerCase();
+    return lowerCasePosts.includes(valueToSearchFor);
+  }
+  return filteredList;
 }
 
 function sortByX(params) {
@@ -61,7 +69,6 @@ function filterByX(params) {
   // If statements for de forskellige parametre
   // showPostsAll()
 }
-
 
 function showPostsAll(array) {
   // appendchild()
