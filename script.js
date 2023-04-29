@@ -15,8 +15,8 @@ async function start() {
   // Opdaterer den globale variabel til posts-arrayet
   posts = await getJSON(lotrDatabase, "posts");
 
-  document.querySelector("#searchBar").addEventListener("keyup", searchBarChanged);
-  document.querySelector("#searchBar").addEventListener("search", searchBarChanged);
+  // document.querySelector("#searchBar").addEventListener("keyup", searchBarChanged);
+  // document.querySelector("#searchBar").addEventListener("search", searchBarChanged);
   // showPosts()
 }
 
