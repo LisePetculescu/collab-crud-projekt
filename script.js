@@ -24,6 +24,10 @@ async function start() {
   document
     .querySelector("#form-delete-character")
     .addEventListener("submit", deleteCharacterYes);
+
+  document
+    .querySelector("#form-update-character")
+    .addEventListener("submit", updateCharacterYes);
 }
 
 async function getJSON(URL, source) {
@@ -109,7 +113,21 @@ function showPost(character) {
     .addEventListener("click", updateButtonClicked);
 
   function updateButtonClicked() {
-    updatePost();
+    const updateForm = document.querySelector("#form-update-character");
+    updateForm.name.value = character.name;
+    updateForm.image.value = character.image;
+    updateForm.race.value = character.race;
+    updateForm.age.value = character.age;
+    updateForm.gender.value = character.gender;
+    updateForm.actor.value = character.actor;
+    updateForm.movie.value = character.movie;
+    updateForm.origin.value = character.origin;
+    updateForm.family.value = character.family;
+    updateForm.description.value = character.description;
+    updateForm.setAttribute("data-id", character.id);
+    document.querySelector("#dialog-update-character").showModal();
+
+    // updatePost();
   }
 
   function deleteButtonClickedOpenModal(character) {
@@ -124,7 +142,42 @@ function showPost(character) {
   }
 }
 
+function updateCharacterYes(event) {
+  event.preventDefault();
+
+  const form = event.target;
+
+  const name = form.character.name;
+  const image = form.character.image;
+  const race = form.character.race;
+  const age = form.character.age;
+  const gender = form.character.gender;
+  const actor = form.character.actor;
+  const movie = form.character.movie;
+  const origin = form.character.origin;
+  const family = form.character.family;
+  const description = form.character.description;
+
+  const id = form.getAttribute("data-id");
+
+  updatePost(
+    id,
+    name,
+    image,
+    race,
+    age,
+    gender,
+    actor,
+    movie,
+    origin,
+    family,
+    description
+  );
+  document.querySelector("#dialog-update-character").close();
+}
+
 function deleteCharacterYes(event) {
+  // document.querySelector("#dialog-delete-character").close();
   const id = event.target.getAttribute("data-id");
   deletePost(id);
 }
