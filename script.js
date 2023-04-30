@@ -20,6 +20,10 @@ async function start() {
 
   // document.querySelector("#????").addEventListener("keyup",searchBarChanged)
   // document.querySelector("#????").addEventListener("search",searchBarChanged)
+
+  document
+    .querySelector("#form-delete-character")
+    .addEventListener("submit", deleteCharacterYes);
 }
 
 async function getJSON(URL, source) {
@@ -64,19 +68,65 @@ function filterByX(params) {
 }
 
 function showPostsAll(array) {
-  // appendchild()
-  for (const post of array) {
+  // omdøb til showCharactersALL?
+  // appendchild() - what??
+
+  document.querySelector(".grid-container").innerHTML = "";
+
+  for (const character of array) {
+    showPost(character);
   }
 }
-function showPost(post) {
-  // document.querySelector("#deleteBtn").addEventListener("click",deleteButtonClickedOpenModal)
-  // document.querySelector("#updateBtn").addEventListener("click",updateButtonClicked)
-  function updateButtonClicked(params) {
+function showPost(character) {
+  // omdøb til showCharacter??
+  const html = /* HTML */ `
+    <article class="grid-item">
+      <h3>${character.name}</h3>
+      <img src="${character.image}" />
+      <p>${character.race}</p>
+      <p>${character.age}</p>
+      <p>${character.gender}</p>
+      <p>${character.actor}</p>
+      <p>${character.movie}</p>
+      <p>${character.origin}</p>
+      <p>${character.family}</p>
+      <p>${character.description}</p>
+      <div class="btns">
+        <button id="btn-delete">Delete</button>
+        <button id="btn-update">Update</button>
+      </div>
+    </article>
+  `;
+  document
+    .querySelector(".grid-container")
+    .insertAdjacentHTML("beforeend", html);
+
+  document
+    .querySelector(".grid-container article:last-child #btn-delete")
+    .addEventListener("click", deleteButtonClickedOpenModal);
+  document
+    .querySelector(".grid-container article:last-child #btn-update")
+    .addEventListener("click", updateButtonClicked);
+
+  function updateButtonClicked() {
     updatePost();
   }
-  function deleteButtonClickedOpenModal(params) {
-    deletePost();
+
+  function deleteButtonClickedOpenModal(character) {
+    document.querySelector("#dialog-delete-character-title").textContent =
+      character.name;
+    document
+      .querySelector("#form-delete-character")
+      .setAttribute("data-id", character.id);
+    document.querySelector("#dialog-delete-character").showModal();
+
+    // deletePost();
   }
+}
+
+function deleteCharacterYes(event) {
+  const id = event.target.getAttribute("data-id");
+  deletePost(id);
 }
 
 function createPostModal(params) {}
