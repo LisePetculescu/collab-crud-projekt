@@ -7,7 +7,8 @@
 window.addEventListener("load", start);
 
 let posts = [];
-const lotrDatabase = "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
+const lotrDatabase =
+  "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function start() {
   console.log("js in running");
@@ -61,7 +62,6 @@ function filterByX(params) {
   // If statements for de forskellige parametre
   // showPostsAll()
 }
-
 
 function showPostsAll(array) {
   // appendchild()
