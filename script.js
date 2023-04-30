@@ -84,16 +84,50 @@ function createNewPost(params) {
   // getUpdatedFirebase()
 }
 
-function updatePost(params) {
-  // getUpdatedFirebase()
+// HTTP Method: PUT
+async function updateCharacter(id, name, image, race, age, gender, actor, movie, origin, family, description) {
+    // Variabel med properties der skal opdateres
+  const characterToUpdate = {name, image, race, age, gender, actor, movie, origin, family, description}
+
+  // Konverterer js objekt til json string
+  const json = JSON.stringify(characterToUpdate);
+
+  // Fetcher specifikt link til den character der skal opdateres, og putter nyt data ind
+  const response = await fetch(`${endpoint}/characters/${id}.json`, {
+    method: "PUT",
+    body: json
+  });
+
+
+  //Hvis response er ok, udskriv log og opdater grid
+  if (response.ok) {
+    console.log("Updated post ${id}");
+    getUpdatedFirebase()
+  }
 }
-function deletePost(params) {
-  // getUpdatedFirebase()
+
+// HTTP Method: DELETE
+async function deletePost(id) {
+  // Fetch link med præcis ID af det post der skal slettes
+  const response = await fetch(`${endpoint}/characters/${id}.json`, {
+    method: "DELETE",
+    });
+    // Hvis response er ok, udskriv log og opdater grid
+    if (response.ok) {
+      console.log("DELETED CHARACTER ${id}");
+      getUpdatedFirebase();
+    }
 }
 async function getUpdatedFirebase(params) {
   const posts = await getJSON();
   showPostsAll(posts);
 }
-function name(params) {}
-function name(params) {}
-function name(params) {}
+function name(params) {
+
+}
+function name(params) {
+
+}
+function name(params) {
+
+}
