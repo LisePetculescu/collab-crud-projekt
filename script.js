@@ -11,7 +11,7 @@ const lotrDatabase =
   "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function start() {
-  console.log("js in running");
+  console.log("js is running");
 
   // Opdaterer den globale variabel til posts-arrayet
   posts = await getJSON(lotrDatabase, "posts");
