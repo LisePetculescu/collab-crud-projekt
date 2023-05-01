@@ -85,7 +85,7 @@ function createNewPost(params) {
 }
 
 // HTTP Method: PUT
-async function updateCharacter(id, name, image, race, age, gender, actor, movie, origin, family, description) {
+async function updatePost(id, name, image, race, age, gender, actor, movie, origin, family, description) {
     // Variabel med properties der skal opdateres
   const characterToUpdate = {name, image, race, age, gender, actor, movie, origin, family, description}
 
