@@ -6,14 +6,18 @@
 
 window.addEventListener("load", start);
 
+
+
+
 let posts = [];
 const lotrDatabase = "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function start() {
   console.log("js in running");
-
+  
   // Opdaterer den globale variabel til posts-arrayet
   posts = await getJSON(lotrDatabase, "posts");
+  console.log(posts);
 
   // showPosts()
 
@@ -53,15 +57,31 @@ function filterBySearch(params) {
   // showPostsAll(array)
 }
 
+function compareName(character1 , character2){
+
+  return character1.name.localeCompare(character2.name)
+}
+  console.log(lotrCharacters.sort(compareName)
+  )
+
 function sortByX(params) {
   // If statements for de forskellige parametre
   // showPostsAll()
 }
+
 function filterByX(params) {
   // If statements for de forskellige parametre
   // showPostsAll()
 }
+function checkRace(character){
+  return character.race.toLowerCase() === "human"
+}
+function testFilter(){
+  const filteredCharacters = posts.filter(checkRace)
+  console.log(filteredCharacters.length)
+}
 
+testFilter()
 
 function showPostsAll(array) {
   // appendchild()
@@ -97,3 +117,4 @@ async function getUpdatedFirebase(params) {
 function name(params) {}
 function name(params) {}
 function name(params) {}
+
