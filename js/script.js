@@ -21,9 +21,8 @@ async function start() {
   document.querySelector("#form-delete-character").addEventListener("submit", deleteCharacterYes);
 
   document.querySelector("#form-update-character").addEventListener("submit", updateCharacterYes);
+  document.querySelector("#btn-create-character").addEventListener("click",createPostModal)
 }
-
-
 
 
 function searchBarChanged(event) {
@@ -84,37 +83,39 @@ function showPost(character) {
   `;
   document.querySelector(".grid-container").insertAdjacentHTML("beforeend", html);
 
-  document.querySelector(".grid-container article:last-child #btn-delete").addEventListener("click", deleteButtonClickedOpenModal);
-  document.querySelector(".grid-container article:last-child #btn-update").addEventListener("click", updateButtonClicked);
-
-  function updateButtonClicked() {
-    const updateForm = document.querySelector("#form-update-character");
-    updateForm.name.value = character.name;
-    updateForm.image.value = character.image;
-    updateForm.race.value = character.race;
-    updateForm.age.value = character.age;
-    updateForm.gender.value = character.gender;
-    updateForm.actor.value = character.actor;
-    updateForm.movie.value = character.movie;
-    updateForm.origin.value = character.origin;
-    updateForm.family.value = character.family;
-    updateForm.description.value = character.description;
-    updateForm.setAttribute("data-id", character.id);
-    document.querySelector("#dialog-update-character").showModal();
-
-    // updatePost();
-  }
-
-  function deleteButtonClickedOpenModal(character) {
-    document.querySelector("#dialog-delete-character-title").textContent = character.name;
-    document.querySelector("#form-delete-character").setAttribute("data-id", character.id);
-    document.querySelector("#dialog-delete-character").showModal();
-
-    // deletePost();
-  }
+  document.querySelector(".grid-container article:last-child #btn-delete").addEventListener("click", () => deleteButtonClickedOpenModal(character));
+  document.querySelector(".grid-container article:last-child #btn-update").addEventListener("click", () => updateButtonClicked(character));
 }
 
-function createPostModal(params) {}
+function updateButtonClicked(character) {
+  console.log("updateButtonClicked")
+  const updateForm = document.querySelector("#form-update-character");
+  updateForm.name.value = character.name;
+  updateForm.image.value = character.image;
+  updateForm.race.value = character.race;
+  updateForm.age.value = character.age;
+  updateForm.gender.value = character.gender;
+  updateForm.actor.value = character.actor;
+  updateForm.movie.value = character.movie;
+  updateForm.origin.value = character.origin;
+  updateForm.family.value = character.family;
+  updateForm.description.value = character.description;
+  updateForm.setAttribute("data-id", character.id);
+  console.log("characterid",character.id)
+  document.querySelector("#dialog-update-character").showModal();
+}
+
+function deleteButtonClickedOpenModal(character) {
+  document.querySelector("#dialog-delete-character-title").textContent = character.name;
+  document.querySelector("#form-delete-character").setAttribute("data-id", character.id);
+  document.querySelector("#dialog-delete-character").showModal();
+}
+
+async function createPostModal(params) {
+  document.querySelector("#dialog-create-character").showModal()
+
+  const response = await createNewPost()
+}
 
 async function updateCharacterYes(event) {
   event.preventDefault();
@@ -139,16 +140,20 @@ async function updateCharacterYes(event) {
 
   const response = await updatePost(id, name, image, race, age, gender, actor, movie, origin, family, description);
     if (response.ok) {
-      console.log("Updated post ${id}");
+      console.log(`Updated post ${id}`);
       getUpdatedFirebase();
     }
   document.querySelector("#dialog-update-character").close();
 }
 
-function deleteCharacterYes(event) {
+async function deleteCharacterYes(event) {
   // document.querySelector("#dialog-delete-character").close();
   const id = event.target.getAttribute("data-id");
-  deletePost(id);
+  const response = await deletePost(id);
+    if (response.ok) {
+      console.log(`DELETED CHARACTER ${id}`);
+      getUpdatedFirebase();
+    }
 }
 
 
@@ -156,3 +161,4 @@ async function getUpdatedFirebase(params) {
   const posts = await getJSON();
   showPostsAll(posts);
 }
+
