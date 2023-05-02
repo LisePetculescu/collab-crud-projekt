@@ -83,7 +83,19 @@ body {
   margin: 0vw;
   background-color: #f3f3f3;
   background-image: url("images/middle earth.jpg");
+  font-family: Arial, Helvetica, serif;
+  font-style: normal;
 }
+
+h1,
+h2,
+h3 {
+  font-family: "lucida handwriting", "lucida console";
+}
+
+section h2 {
+    text-align: center;
+} 
 
 button,
 #btn-submit,
