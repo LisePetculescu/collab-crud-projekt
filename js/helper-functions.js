@@ -7,7 +7,6 @@ function prepareData(listOfObjects) {
     post.id = object;
     arrayFromObjects.push(post);
   }
-
   return arrayFromObjects;
 }
 

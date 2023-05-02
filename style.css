@@ -55,8 +55,9 @@ header {
 }
 
 form {
-  display: table-caption;
+  display: grid;
   margin-left: 2vw;
+  padding: 5em;
 }
 
 footer {
@@ -80,8 +81,9 @@ button,
 
 #btn-yes,
 #btn-no-update,
-.btn-delete,
-#btn-back {
+#btn-no-delete,
+#btn-delete,
+#btn-no-create {
   background-color: rgb(120, 69, 24);
   border: 2px solid rgb(99, 59, 25);
 }

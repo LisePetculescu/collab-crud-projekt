@@ -14,6 +14,28 @@
       <h1>LoTR Crud App with rest api (subject to change)</h1>
       <button id="btn-create-character">Create new character</button>
       <input type="search" id="input-search" placeholder="Search by name" />
+            <label for="filter">Filter By:</label>
+      <select id="filter">
+        <option value="race">Race</option>
+        <option value="movie">Movie</option>
+          <optgroup label="Gender">
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </optgroup>
+      </select>
+
+      <label for="sort">Sort By:</label>
+      <select id="sort">
+        <option value="name">Name</option>
+        <option value="race">Race</option>
+        <option value="age">Age</option>
+        <option value="gender">Gender</option>
+        <option value="actor">Actor</option>
+        <option value="movie">Movie</option>
+        <option value="origin">Origin</option>
+        <option value="family">Family</option>
+      </select>
+
     </header>
 
     <main>
@@ -90,8 +112,10 @@
             name="description"
             placeholder="New description here here"
           />
-          <button id="btn-back">Back</button>
-          <input type="submit" id="btn-submit" value="Create Character" />
+          <br>
+          <br>
+          <input type="submit" class="float" id="btn-submit" value="Create Character">
+          <input type="button"class="float"  id="btn-no-create" value="Back">
           <!-- <button id="btn-create">Create character</button> -->
         </form>
       </dialog>
@@ -175,33 +199,13 @@
         </form>
       </dialog>
 
-      <label for="filter">Filter By:</label>
-      <select id="filter">
-        <option value="all">All</option>
-        <option value="race">Race</option>
-        <option value="gender">Gender</option>
-        <option value="movie">Movie</option>
-        <option value="origin">Origin</option>
-        <option value="family">Family</option>
-      </select>
 
-      <label for="sort">Sort By:</label>
-      <select id="sort">
-        <option value="name">Name</option>
-        <option value="race">Race</option>
-        <option value="age">Age</option>
-        <option value="gender">Gender</option>
-        <option value="actor">Actor</option>
-        <option value="movie">Movie</option>
-        <option value="origin">Origin</option>
-        <option value="family">Family</option>
-      </select>
 
       <dialog id="dialog-delete-character">
         <h2>Do you want to delete this character?</h2>
         <p id="dialog-delete-character-title">Title of character</p>
         <form method="dialog" id="form-delete-character">
-          <button type="button" class="btn-cancel">No</button>
+          <button type="button" class="btn-cancel" id="btn-no-delete">No</button>
           <button>Yes</button>
         </form>
       </dialog>

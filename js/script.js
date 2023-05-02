@@ -6,31 +6,30 @@ import {getJSON, updatePost, deletePost, createNewPost} from "./HTTP.js"
 window.addEventListener("load", start);
 
 let posts = [];
-const lotrDatabase = "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/";
 
-async function start() {
+function start() {
   console.log("js is running");
 
   // Opdaterer den globale variabel til posts-arrayet
-  posts = await getJSON(lotrDatabase, "posts");
+  getUpdatedFirebase()
 
   document.querySelector("#input-search").addEventListener("keyup", searchBarChanged);
   document.querySelector("#input-search").addEventListener("search", searchBarChanged);
-  showPostsAll(posts)
-
   document.querySelector("#form-delete-character").addEventListener("submit", deleteCharacterYes);
-
   document.querySelector("#form-update-character").addEventListener("submit", updateCharacterYes);
-  document.querySelector("#btn-create-character").addEventListener("click",createPostModal)
+  document.querySelector("#btn-create-character").addEventListener("click",createCharacterModal)
+  document.querySelector("#btn-no-update").addEventListener("click", () => document.querySelector("#dialog-update-character").close());
+  document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-character").close());
+  document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-character").close());
 }
 
 
 function searchBarChanged(event) {
   const valueToSearchFor = event.target.value.toLowerCase();
-  console.log(valueToSearchFor);
+
   const filteredList = filterBySearch(valueToSearchFor);
-  console.log(filteredList);
-  // showPostsAll(filteredList)
+
+  showCharactersAll(filteredList)
 }
 
 function filterBySearch(valueToSearchFor) {
@@ -46,23 +45,21 @@ function sortByX(params) {
   // If statements for de forskellige parametre
   // showPostsAll()
 }
+
 function filterByX(params) {
   // If statements for de forskellige parametre
   // showPostsAll()
 }
 
-function showPostsAll(array) {
-  // omdøb til showCharactersALL?
-  // appendchild() - what??
-
+function showCharactersAll(array) {
   document.querySelector(".grid-container").innerHTML = "";
 
   for (const character of array) {
-    showPost(character);
+    showCharacter(character);
   }
 }
-function showPost(character) {
-  // omdøb til showCharacter??
+
+function showCharacter(character) {
   const html = /* HTML */ `
     <article class="grid-item">
       <h3>${character.name}</h3>
@@ -111,21 +108,19 @@ function deleteButtonClickedOpenModal(character) {
   document.querySelector("#dialog-delete-character").showModal();
 }
 
-async function createPostModal(params) {
-  document.querySelector("#dialog-create-character").showModal()
+async function createCharacterModal(event) {
+  event.preventDefault();
+  document.querySelector("#dialog-create-character").showModal();
 
-  const response = await createNewPost()
+  // const response = await createNewPost()
 }
 
 async function updateCharacterYes(event) {
   event.preventDefault();
-  console.log("event.target:", event.target);
-  console.log("event:", event);
 
   const form = event.target;
 
   const name = form.name.value;
-  console.log(name);
   const image = form.image.value;
   const race = form.race.value;
   const age = form.age.value;
@@ -156,9 +151,8 @@ async function deleteCharacterYes(event) {
     }
 }
 
-
 async function getUpdatedFirebase(params) {
   const posts = await getJSON();
-  showPostsAll(posts);
+  showCharactersAll(posts);
 }
 
