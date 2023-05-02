@@ -21,12 +21,16 @@ function filterBySearch(valueToSearchFor) {
   // return filteredList;
 }
 
-
-function capitalFirstLetter(string) {
-  const result = string.slice(0, 1).toUpperCase() + string.slice(1)
-  console.log(result)
-return result
+function showCreateCharacterDialog(params) {
+  document.querySelector("#dialog-create-character").showModal();
 }
 
-export { prepareData, capitalFirstLetter, filterBySearch };
+function capitalFirstLetter(string) {
+  console.log(string);
+  const result = string.slice(0, 1).toUpperCase() + string.slice(1);
+  console.log(result);
+  return result;
+}
+
+export { prepareData, capitalFirstLetter, filterBySearch, showCreateCharacterDialog };
 // export {prepareData}

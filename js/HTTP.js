@@ -13,11 +13,15 @@ async function getJSON() {
   return objectsToArray;
 }
 
-async function createNewPost(params) {
-  // getUpdatedFirebase()
+async function createNewCharacter(name, image, race, age, actor, movie, origin, family, description, gender) {
+  const newCharacter = { name, image, race, age, actor, movie, origin, family, description, gender };
+  const json = JSON.stringify(newCharacter);
 
-  // HELP MEEEEE
-  return reponse;
+  const response = await fetch(`${lotrDatabase}/posts.json`, {
+    method: "POST",
+    body: json,
+  });
+  return response;
 }
 
 // HTTP Method: PUT
@@ -54,4 +58,4 @@ async function deletePost(id) {
   return response;
 }
 
-export { getJSON, updatePost, deletePost, createNewPost };
+export { getJSON, updatePost, deletePost, createNewCharacter };

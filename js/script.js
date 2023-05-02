@@ -1,12 +1,12 @@
 "use strict";
 
-import { getJSON, updatePost, deletePost, createNewPost } from "./HTTP.js";
-import { capitalFirstLetter } from "./helper-functions.js";
+import { getJSON, updatePost, deletePost, createNewCharacter } from "./HTTP.js";
+import { capitalFirstLetter, showCreateCharacterDialog } from "./helper-functions.js";
 //////////////////////////////////////////////////////////////////////
 //////////////////DET ER ULOVLIGT AT ARBEJDE I MAINBRANCH/////////////
 //////////////////////////////////////////////////////////////////////
 
-// ////////// TILPAS OBJEKTER: MOVIES TIL TRIOLOGY ///////////
+// ////////// TILPAS OBJEKTER: MOVIES TIL movie ///////////
 let posts;
 
 window.addEventListener("load", start);
@@ -21,7 +21,8 @@ async function start() {
   document.querySelector("#input-search").addEventListener("search", searchBarChanged);
   document.querySelector("#form-delete-character").addEventListener("submit", deleteCharacterYes);
   document.querySelector("#form-update-character").addEventListener("submit", updateCharacterYes);
-  document.querySelector("#btn-create-character").addEventListener("click", createCharacterModal);
+  document.querySelector("#btn-create-character").addEventListener("click", showCreateCharacterDialog);
+  document.querySelector("#form-create-character").addEventListener("submit", createCharacterModal);
   document.querySelector("#btn-no-update").addEventListener("click", () => document.querySelector("#dialog-update-character").close());
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-character").close());
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-character").close());
@@ -33,8 +34,6 @@ function searchBarChanged(event) {
   const filteredList = filterBySearch(valueToSearchFor);
   showCharactersAll(filteredList);
 }
-
-
 
 function sortByX(params) {
   // If statements for de forskellige parametre
@@ -77,20 +76,23 @@ function showCharacter(character) {
 }
 
 function showCharacterModal(character) {
-  for (const key in character) {
-    if (typeof character[key] === "string" && key !== "image") {
-      character[key] = capitalFirstLetter(character[key]);
-    }
-  }
+  console.log(character);
+  // for (const key in character) {
+  //   if (typeof character[key] === "string" && key !== "image") {
+  //     character[key] = capitalFirstLetter(character[key]);
+  //   }
+  // }
+  // <h3>${capitalFirstLetter(character.name)} <button id="btn-close">Back</button></h3>
+  // <p>Gender: ${capitalFirstLetter(character.gender)}</p>
   const html = /* HTML */ `
     <article class="grid-item">
-      <h3>${capitalFirstLetter(character.name)} <button id="btn-close">Back</button></h3>
+      <h3>${character.name} <button id="btn-close">Back</button></h3>
       <img src="${character.image}" />
       <p>Race: ${character.race}</p>
       <p>Age: ${character.age}</p>
       <p>Actor: ${character.actor}</p>
-      <p>Gender: ${capitalFirstLetter(character.gender)}</p>
-      <p>Triology:${character.movie}</p>
+      <p>Gender: ${character.gender}</p>
+      <p>movie:${character.movie}</p>
       <p>Origin: ${character.origin}</p>
       <p>Family: ${character.family}</p>
       <p>Description: ${character.description}</p>
@@ -105,7 +107,6 @@ function showCharacterModal(character) {
   document.querySelector("#btn-update").addEventListener("click", () => updateButtonClicked(character));
   document.querySelector("#btn-close").addEventListener("click", () => document.querySelector("#show-character-modal").close());
   document.querySelector("#show-character-modal").showModal();
-  console.log("testsetestests");
 }
 
 function updateButtonClicked(character) {
@@ -136,9 +137,25 @@ function deleteButtonClickedOpenModal(character) {
 
 async function createCharacterModal(event) {
   event.preventDefault();
-  document.querySelector("#dialog-create-character").showModal();
+  const form = event.target;
 
-  // const response = await createNewCharacter()
+  const name = form.name.value;
+  const image = form.image.value;
+  const race = form.race.value;
+  const gender = form.gender.value;
+  const age = form.age.value;
+  const actor = form.actor.value;
+  const movie = form.movie.value;
+  const origin = form.origin.value;
+  const family = form.family.value;
+  const description = form.description.value;
+
+  const response = await createNewCharacter(name, image, race, age, actor, movie, origin, family, description, gender);
+
+  if (response.ok) {
+    getUpdatedFirebase();
+    form.reset();
+  }
 }
 
 async function updateCharacterYes(event) {
@@ -168,6 +185,7 @@ async function updateCharacterYes(event) {
 }
 
 async function deleteCharacterYes(event) {
+  console.log("Delete????");
   // document.querySelector("#dialog-delete-character").close();
   const id = event.target.getAttribute("data-id");
   const response = await deletePost(id);
