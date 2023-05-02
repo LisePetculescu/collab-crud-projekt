@@ -55,9 +55,23 @@ header {
 }
 
 form {
-  display: grid;
+  display: table-caption;
   margin-left: 2vw;
   padding: 5em;
+}
+
+.confirm-btn{
+  margin-top: 5px;
+  padding: 6px;
+}
+
+#btn-close{
+margin-left: 300px;
+font-size: 1em;
+/* padding-top: 0.5em;
+padding-left: 1em;
+padding-right: 1em; */
+padding: 0.5em 1em;
 }
 
 footer {

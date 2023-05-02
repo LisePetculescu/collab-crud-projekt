@@ -16,9 +16,17 @@
       <input type="search" id="input-search" placeholder="Search by name" />
             <label for="filter">Filter By:</label>
       <select id="filter">
-        <option value="race">Race</option>
-        <option value="movie">Movie</option>
-          <optgroup label="Gender">
+        <optgroup label="Race.">
+          <option value="human">Human</option>
+          <option value="elf">Elf</option>
+          <option value="hobbit">Hobbit</option>
+          <option value="dwarf">Dwarf</option>
+        </optgroup>
+        <optgroup label="Triology.">
+          <option value="LoTR">Lord Of The Rings</option>
+          <option value="hobbit">The Hobbit</option>
+        </optgroup>
+          <optgroup label="Gender.">
     <option value="male">Male</option>
     <option value="female">Female</option>
   </optgroup>
@@ -193,8 +201,9 @@
             name="description"
             placeholder="Update description here here"
           />
-          <input type="button" id="btn-no-update" value="Cancel" />
-          <button id="btn-yes-update">Update Character</button>
+
+          <button id="btn-yes-update" class="confirm-btn">Update Character</button>
+          <input type="button" id="btn-no-update"class="confirm-btn" value="Cancel" />
           <!-- <button>Update character</button> -->
         </form>
       </dialog>
@@ -205,10 +214,15 @@
         <h2>Do you want to delete this character?</h2>
         <p id="dialog-delete-character-title">Title of character</p>
         <form method="dialog" id="form-delete-character">
-          <button type="button" class="btn-cancel" id="btn-no-delete">No</button>
-          <button>Yes</button>
+          <input type="button" value="No" class="btn-cancel" id="btn-no-delete">
+          <input type="button"  value="Yes">
         </form>
       </dialog>
+
+      <dialog id="show-character-modal">
+        
+      </dialog>
+
     </main>
   </body>
 

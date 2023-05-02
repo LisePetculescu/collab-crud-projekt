@@ -1,7 +1,10 @@
 import {getJSON, updatePost, deletePost, createNewPost} from "./HTTP.js"
+// import { capitalFirstLetter} from "./helper-functions.js";
 //////////////////////////////////////////////////////////////////////
 //////////////////DET ER ULOVLIGT AT ARBEJDE I MAINBRANCH/////////////
 //////////////////////////////////////////////////////////////////////
+
+// ////////// TILPAS OBJEKTER: MOVIES TIL TRIOLOGY ///////////
 
 window.addEventListener("load", start);
 
@@ -23,12 +26,12 @@ function start() {
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-character").close());
 }
 
-
 function searchBarChanged(event) {
+  console.log(event.target.value)
   const valueToSearchFor = event.target.value.toLowerCase();
 
   const filteredList = filterBySearch(valueToSearchFor);
-
+  console.log(filteredList)
   showCharactersAll(filteredList)
 }
 
@@ -53,7 +56,7 @@ function filterByX(params) {
 
 function showCharactersAll(array) {
   document.querySelector(".grid-container").innerHTML = "";
-
+  posts = array
   for (const character of array) {
     showCharacter(character);
   }
@@ -64,24 +67,54 @@ function showCharacter(character) {
     <article class="grid-item">
       <h3>${character.name}</h3>
       <img src="${character.image}" />
-      <p>${character.race}</p>
-      <p>${character.age}</p>
-      <p>${character.gender}</p>
-      <p>${character.actor}</p>
-      <p>${character.movie}</p>
-      <p>${character.origin}</p>
-      <p>${character.family}</p>
-      <p>${character.description}</p>
+      <p>Race: ${character.race}</p>
+      <p>Age: ${character.age}</p>
+      <p>Actor: ${character.actor}</p>
       <div class="btns">
-        <button id="btn-delete">Delete</button>
-        <button id="btn-update">Update</button>
+      <button>Show more info</button>
       </div>
-    </article>
-  `;
-  document.querySelector(".grid-container").insertAdjacentHTML("beforeend", html);
+      </article>
+      `;
+      // <button id="btn-delete">Delete</button>
+      // <button id="btn-update">Update</button>
+      document.querySelector(".grid-container").insertAdjacentHTML("beforeend", html);
 
-  document.querySelector(".grid-container article:last-child #btn-delete").addEventListener("click", () => deleteButtonClickedOpenModal(character));
-  document.querySelector(".grid-container article:last-child #btn-update").addEventListener("click", () => updateButtonClicked(character));
+  // document.querySelector(".grid-container article:last-child #btn-delete").addEventListener("click", () => deleteButtonClickedOpenModal(character));
+  // document.querySelector(".grid-container article:last-child #btn-update").addEventListener("click", () => updateButtonClicked(character));
+  document.querySelector(".grid-container article:last-child").addEventListener("click", () => showCharacterModal(character));
+}
+
+function showCharacterModal(character) {
+
+    for (const key in character) {
+      if (typeof character[key] === "string" && key !== "image") {
+        character[key] = capitalFirstLetter(character[key]);
+      }
+    }
+    const html = /* HTML */ `
+      <article class="grid-item">
+        <h3>${capitalFirstLetter(character.name)} <button id="btn-close">Back</button></h3>
+        <img src="${character.image}" />
+        <p>Race: ${character.race}</p>
+        <p>Age: ${character.age}</p>
+        <p>Actor: ${character.actor}</p>
+        <p>Gender: ${capitalFirstLetter(character.gender)}</p>
+        <p>Triology:${character.movie}</p>
+        <p>Origin: ${character.origin}</p>
+        <p>Family: ${character.family}</p>
+        <p>Description: ${character.description}</p>
+        <div class="btns">
+          <button id="btn-delete">Delete</button>
+          <button id="btn-update">Update</button>
+        </div>
+      </article>
+    `;
+    document.querySelector("#show-character-modal").innerHTML = html;
+    document.querySelector("#btn-delete").addEventListener("click", () => deleteButtonClickedOpenModal(character))
+    document.querySelector("#btn-update").addEventListener("click", () => updateButtonClicked(character))
+    document.querySelector("#btn-close").addEventListener("click", () => document.querySelector("#show-character-modal").close())
+     document.querySelector("#show-character-modal").showModal();
+  console.log("testsetestests");
 }
 
 function updateButtonClicked(character) {
@@ -99,12 +132,14 @@ function updateButtonClicked(character) {
   updateForm.description.value = character.description;
   updateForm.setAttribute("data-id", character.id);
   console.log("characterid",character.id)
+  document.querySelector("#show-character-modal").close();
   document.querySelector("#dialog-update-character").showModal();
 }
 
 function deleteButtonClickedOpenModal(character) {
   document.querySelector("#dialog-delete-character-title").textContent = character.name;
   document.querySelector("#form-delete-character").setAttribute("data-id", character.id);
+  document.querySelector("#show-character-modal").close();
   document.querySelector("#dialog-delete-character").showModal();
 }
 
@@ -152,7 +187,8 @@ async function deleteCharacterYes(event) {
 }
 
 async function getUpdatedFirebase(params) {
-  const posts = await getJSON();
-  showCharactersAll(posts);
+  const result = await getJSON();
+  // posts = result
+  console.log("posts", result);
+  showCharactersAll(result);
 }
-

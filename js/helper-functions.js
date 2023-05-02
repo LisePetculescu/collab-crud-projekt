@@ -10,4 +10,12 @@ function prepareData(listOfObjects) {
   return arrayFromObjects;
 }
 
-export {prepareData}
+
+function capitalFirstLetter(string) {
+  const result = string.slice(0, 1).toUpperCase() + string.slice(1)
+  console.log(result)
+return result
+}
+
+export {prepareData, capitalFirstLetter}
+// export {prepareData}
