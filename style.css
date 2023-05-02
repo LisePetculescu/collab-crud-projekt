@@ -37,8 +37,9 @@
 
 .grid-item img {
   width: 100%;
-  border-radius: 2vw;
+  border-radius: 1vw;
 }
+
 .grid-item {
   position: relative;
   border-radius: 6px;
@@ -60,18 +61,18 @@ form {
   padding: 5em;
 }
 
-.confirm-btn{
+.confirm-btn {
   margin-top: 5px;
   padding: 6px;
 }
 
-#btn-close{
-margin-left: 300px;
-font-size: 1em;
-/* padding-top: 0.5em;
+#btn-close {
+  margin-left: 300px;
+  font-size: 1em;
+  /* padding-top: 0.5em;
 padding-left: 1em;
 padding-right: 1em; */
-padding: 0.5em 1em;
+  padding: 0.5em 1em;
 }
 
 footer {
@@ -94,8 +95,8 @@ h3 {
 }
 
 section h2 {
-    text-align: center;
-} 
+  text-align: center;
+}
 
 button,
 #btn-submit,
