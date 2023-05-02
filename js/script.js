@@ -1,48 +1,40 @@
-import {getJSON, updatePost, deletePost, createNewPost} from "./HTTP.js"
-// import { capitalFirstLetter} from "./helper-functions.js";
+"use strict";
+
+import { getJSON, updatePost, deletePost, createNewPost } from "./HTTP.js";
+import { capitalFirstLetter } from "./helper-functions.js";
 //////////////////////////////////////////////////////////////////////
 //////////////////DET ER ULOVLIGT AT ARBEJDE I MAINBRANCH/////////////
 //////////////////////////////////////////////////////////////////////
 
 // ////////// TILPAS OBJEKTER: MOVIES TIL TRIOLOGY ///////////
+let posts;
 
 window.addEventListener("load", start);
 
-let posts = [];
-
-function start() {
+async function start() {
   console.log("js is running");
 
   // Opdaterer den globale variabel til posts-arrayet
-  getUpdatedFirebase()
+  getUpdatedFirebase();
 
   document.querySelector("#input-search").addEventListener("keyup", searchBarChanged);
   document.querySelector("#input-search").addEventListener("search", searchBarChanged);
   document.querySelector("#form-delete-character").addEventListener("submit", deleteCharacterYes);
   document.querySelector("#form-update-character").addEventListener("submit", updateCharacterYes);
-  document.querySelector("#btn-create-character").addEventListener("click",createCharacterModal)
+  document.querySelector("#btn-create-character").addEventListener("click", createCharacterModal);
   document.querySelector("#btn-no-update").addEventListener("click", () => document.querySelector("#dialog-update-character").close());
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-character").close());
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-character").close());
 }
 
 function searchBarChanged(event) {
-  console.log(event.target.value)
+  console.log(event.target.value);
   const valueToSearchFor = event.target.value.toLowerCase();
-
   const filteredList = filterBySearch(valueToSearchFor);
-  console.log(filteredList)
-  showCharactersAll(filteredList)
+  showCharactersAll(filteredList);
 }
 
-function filterBySearch(valueToSearchFor) {
-  const filteredList = posts.filter(checkName);
-  function checkName(post) {
-    const lowerCasePosts = post.name.toLowerCase();
-    return lowerCasePosts.includes(valueToSearchFor);
-  }
-  return filteredList;
-}
+
 
 function sortByX(params) {
   // If statements for de forskellige parametre
@@ -56,7 +48,7 @@ function filterByX(params) {
 
 function showCharactersAll(array) {
   document.querySelector(".grid-container").innerHTML = "";
-  posts = array
+  console.log(posts);
   for (const character of array) {
     showCharacter(character);
   }
@@ -71,13 +63,13 @@ function showCharacter(character) {
       <p>Age: ${character.age}</p>
       <p>Actor: ${character.actor}</p>
       <div class="btns">
-      <button>Show more info</button>
+        <button>Show more info</button>
       </div>
-      </article>
-      `;
-      // <button id="btn-delete">Delete</button>
-      // <button id="btn-update">Update</button>
-      document.querySelector(".grid-container").insertAdjacentHTML("beforeend", html);
+    </article>
+  `;
+  // <button id="btn-delete">Delete</button>
+  // <button id="btn-update">Update</button>
+  document.querySelector(".grid-container").insertAdjacentHTML("beforeend", html);
 
   // document.querySelector(".grid-container article:last-child #btn-delete").addEventListener("click", () => deleteButtonClickedOpenModal(character));
   // document.querySelector(".grid-container article:last-child #btn-update").addEventListener("click", () => updateButtonClicked(character));
@@ -85,40 +77,39 @@ function showCharacter(character) {
 }
 
 function showCharacterModal(character) {
-
-    for (const key in character) {
-      if (typeof character[key] === "string" && key !== "image") {
-        character[key] = capitalFirstLetter(character[key]);
-      }
+  for (const key in character) {
+    if (typeof character[key] === "string" && key !== "image") {
+      character[key] = capitalFirstLetter(character[key]);
     }
-    const html = /* HTML */ `
-      <article class="grid-item">
-        <h3>${capitalFirstLetter(character.name)} <button id="btn-close">Back</button></h3>
-        <img src="${character.image}" />
-        <p>Race: ${character.race}</p>
-        <p>Age: ${character.age}</p>
-        <p>Actor: ${character.actor}</p>
-        <p>Gender: ${capitalFirstLetter(character.gender)}</p>
-        <p>Triology:${character.movie}</p>
-        <p>Origin: ${character.origin}</p>
-        <p>Family: ${character.family}</p>
-        <p>Description: ${character.description}</p>
-        <div class="btns">
-          <button id="btn-delete">Delete</button>
-          <button id="btn-update">Update</button>
-        </div>
-      </article>
-    `;
-    document.querySelector("#show-character-modal").innerHTML = html;
-    document.querySelector("#btn-delete").addEventListener("click", () => deleteButtonClickedOpenModal(character))
-    document.querySelector("#btn-update").addEventListener("click", () => updateButtonClicked(character))
-    document.querySelector("#btn-close").addEventListener("click", () => document.querySelector("#show-character-modal").close())
-     document.querySelector("#show-character-modal").showModal();
+  }
+  const html = /* HTML */ `
+    <article class="grid-item">
+      <h3>${capitalFirstLetter(character.name)} <button id="btn-close">Back</button></h3>
+      <img src="${character.image}" />
+      <p>Race: ${character.race}</p>
+      <p>Age: ${character.age}</p>
+      <p>Actor: ${character.actor}</p>
+      <p>Gender: ${capitalFirstLetter(character.gender)}</p>
+      <p>Triology:${character.movie}</p>
+      <p>Origin: ${character.origin}</p>
+      <p>Family: ${character.family}</p>
+      <p>Description: ${character.description}</p>
+      <div class="btns">
+        <button id="btn-delete">Delete</button>
+        <button id="btn-update">Update</button>
+      </div>
+    </article>
+  `;
+  document.querySelector("#show-character-modal").innerHTML = html;
+  document.querySelector("#btn-delete").addEventListener("click", () => deleteButtonClickedOpenModal(character));
+  document.querySelector("#btn-update").addEventListener("click", () => updateButtonClicked(character));
+  document.querySelector("#btn-close").addEventListener("click", () => document.querySelector("#show-character-modal").close());
+  document.querySelector("#show-character-modal").showModal();
   console.log("testsetestests");
 }
 
 function updateButtonClicked(character) {
-  console.log("updateButtonClicked")
+  console.log("updateButtonClicked");
   const updateForm = document.querySelector("#form-update-character");
   updateForm.name.value = character.name;
   updateForm.image.value = character.image;
@@ -131,7 +122,7 @@ function updateButtonClicked(character) {
   updateForm.family.value = character.family;
   updateForm.description.value = character.description;
   updateForm.setAttribute("data-id", character.id);
-  console.log("characterid",character.id)
+  console.log("characterid", character.id);
   document.querySelector("#show-character-modal").close();
   document.querySelector("#dialog-update-character").showModal();
 }
@@ -147,7 +138,7 @@ async function createCharacterModal(event) {
   event.preventDefault();
   document.querySelector("#dialog-create-character").showModal();
 
-  // const response = await createNewPost()
+  // const response = await createNewCharacter()
 }
 
 async function updateCharacterYes(event) {
@@ -169,10 +160,10 @@ async function updateCharacterYes(event) {
   const id = form.getAttribute("data-id");
 
   const response = await updatePost(id, name, image, race, age, gender, actor, movie, origin, family, description);
-    if (response.ok) {
-      console.log(`Updated post ${id}`);
-      getUpdatedFirebase();
-    }
+  if (response.ok) {
+    console.log(`Updated post ${id}`);
+    getUpdatedFirebase();
+  }
   document.querySelector("#dialog-update-character").close();
 }
 
@@ -180,15 +171,14 @@ async function deleteCharacterYes(event) {
   // document.querySelector("#dialog-delete-character").close();
   const id = event.target.getAttribute("data-id");
   const response = await deletePost(id);
-    if (response.ok) {
-      console.log(`DELETED CHARACTER ${id}`);
-      getUpdatedFirebase();
-    }
+  if (response.ok) {
+    console.log(`DELETED CHARACTER ${id}`);
+    getUpdatedFirebase();
+  }
 }
 
 async function getUpdatedFirebase(params) {
   const result = await getJSON();
-  // posts = result
-  console.log("posts", result);
+  posts = result;
   showCharactersAll(result);
 }

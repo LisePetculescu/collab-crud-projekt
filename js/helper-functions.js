@@ -10,6 +10,17 @@ function prepareData(listOfObjects) {
   return arrayFromObjects;
 }
 
+function filterBySearch(valueToSearchFor) {
+  console.log("posts", posts);
+  return posts.filter((post) => post.name.toLowerCase().includes(valueToSearchFor));
+  // const filteredList = posts.filter(checkName);
+  // function checkName(post) {
+  //   const lowerCasePosts = post.name.toLowerCase();
+  //   return lowerCasePosts.includes(valueToSearchFor);
+  // }
+  // return filteredList;
+}
+
 
 function capitalFirstLetter(string) {
   const result = string.slice(0, 1).toUpperCase() + string.slice(1)
@@ -17,5 +28,5 @@ function capitalFirstLetter(string) {
 return result
 }
 
-export {prepareData, capitalFirstLetter}
+export { prepareData, capitalFirstLetter, filterBySearch };
 // export {prepareData}
