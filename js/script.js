@@ -1,7 +1,7 @@
 "use strict";
 
 import { getJSON, updatePost, deletePost, createNewCharacter } from "./HTTP.js";
-// import { capitalFirstLetter, showCreateCharacterDialog } from "./helper-functions.js";
+import { capitalFirstLetter, filterBySearch } from "./helper-functions.js";
 //////////////////////////////////////////////////////////////////////
 //////////////////DET ER ULOVLIGT AT ARBEJDE I MAINBRANCH/////////////
 //////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ async function start() {
 function searchBarChanged(event) {
   console.log(event.target.value);
   const valueToSearchFor = event.target.value.toLowerCase();
-  const filteredList = filterBySearch(valueToSearchFor);
+  const filteredList = filterBySearch(valueToSearchFor, posts);
   showCharactersAll(filteredList);
 }
 

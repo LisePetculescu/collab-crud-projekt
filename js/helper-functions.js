@@ -10,7 +10,7 @@ function prepareData(listOfObjects) {
   return arrayFromObjects;
 }
 
-function filterBySearch(valueToSearchFor) {
+function filterBySearch(valueToSearchFor, posts) {
   console.log("posts", posts);
   return posts.filter(post => post.name.toLowerCase().includes(valueToSearchFor));
   // const filteredList = posts.filter(checkName);
