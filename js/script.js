@@ -26,6 +26,7 @@ async function start() {
   document.querySelector("#btn-no-update").addEventListener("click", () => document.querySelector("#dialog-update-character").close());
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-character").close());
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-character").close());
+  document.querySelector("#filter").addEventListener("change",)
 }
 
 function searchBarChanged(event) {
