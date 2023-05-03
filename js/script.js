@@ -26,7 +26,7 @@ async function start() {
   document.querySelector("#btn-no-update").addEventListener("click", () => document.querySelector("#dialog-update-character").close());
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-character").close());
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-character").close());
-  document.querySelector("#filter").addEventListener("change",)
+  document.querySelector("#filter").addEventListener("change", filterByX);
 }
 
 function searchBarChanged(event) {
@@ -44,6 +44,7 @@ function sortByX(params) {
 function checkRace(character) {
   return character.race.toLowerCase() === "human";
 }
+
 function testFilter() {
   const filteredCharacters = posts.filter(checkRace);
   console.log(filteredCharacters.length);
@@ -52,8 +53,31 @@ function testFilter() {
 function compareName(character1, character2) {
   return character1.name.localeCompare(character2.name);
 }
-console.log(lotrCharacters.sort(compareName));
-function filterByX(params) {
+
+function filterByX(event) {
+  console.log("filterby EVENT:", event);
+  console.log("filterby EVENT target:", event.target);
+  const valueToFilterBy = event.target.value;
+  console.log("tofilterbyvalue:", valueToFilterBy);
+
+  let newList = posts.filter(filterFunction);
+  // const filteredList = posts.filter(filterFunction);
+
+  function filterFunction(currentValue) {
+    // console.log(currentValue[event]);
+    if (valueToFilterBy === "LoTR" || valueToFilterBy === "theHobbit") {
+      console.log("lotr/hobbit");
+      return currentValue.movie.toLowerCase() === valueToFilterBy;
+    } else if (valueToFilterBy === "male" || valueToFilterBy === "female") {
+      console.log("gender to sort by");
+      return currentValue.gender.toLowerCase() === valueToFilterBy;
+    } else {
+      console.log("else: race");
+      console.log(currentValue.race);
+      return currentValue.race.toLowerCase() === valueToFilterBy.toLowerCase();
+    }
+  }
+  console.log(newList);
   // If statements for de forskellige parametre
   // showPostsAll()
 }
@@ -168,6 +192,7 @@ async function createCharacterModal(event) {
   if (response.ok) {
     getUpdatedFirebase();
     form.reset();
+    document.querySelector("#dialog-create-character").close();
   }
 }
 
