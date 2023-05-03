@@ -10,12 +10,27 @@ function prepareData(listOfObjects) {
   return arrayFromObjects;
 }
 
-
-function capitalFirstLetter(string) {
-  const result = string.slice(0, 1).toUpperCase() + string.slice(1)
-  console.log(result)
-return result
+function filterBySearch(valueToSearchFor) {
+  console.log("posts", posts);
+  return posts.filter((post) => post.name.toLowerCase().includes(valueToSearchFor));
+  // const filteredList = posts.filter(checkName);
+  // function checkName(post) {
+  //   const lowerCasePosts = post.name.toLowerCase();
+  //   return lowerCasePosts.includes(valueToSearchFor);
+  // }
+  // return filteredList;
 }
 
-export {prepareData, capitalFirstLetter}
+function showCreateCharacterDialog(params) {
+  document.querySelector("#dialog-create-character").showModal();
+}
+
+function capitalFirstLetter(string) {
+  console.log(string);
+  const result = string.slice(0, 1).toUpperCase() + string.slice(1);
+  console.log(result);
+  return result;
+}
+
+export { prepareData, capitalFirstLetter, filterBySearch, showCreateCharacterDialog };
 // export {prepareData}
