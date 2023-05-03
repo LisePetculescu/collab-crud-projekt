@@ -40,6 +40,18 @@ function sortByX(params) {
   // showPostsAll()
 }
 
+function checkRace(character) {
+  return character.race.toLowerCase() === "human";
+}
+function testFilter() {
+  const filteredCharacters = posts.filter(checkRace);
+  console.log(filteredCharacters.length);
+}
+
+function compareName(character1, character2) {
+  return character1.name.localeCompare(character2.name);
+}
+console.log(lotrCharacters.sort(compareName));
 function filterByX(params) {
   // If statements for de forskellige parametre
   // showPostsAll()
