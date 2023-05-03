@@ -26,7 +26,8 @@ async function start() {
   document.querySelector("#btn-no-update").addEventListener("click", () => document.querySelector("#dialog-update-character").close());
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-character").close());
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-character").close());
-  document.querySelector("#filter").addEventListener("change", filterByX);
+  document.querySelector("#filter").addEventListener("change", filterByProperty);
+  document.querySelector("#sort").addEventListener("change", sortByX);
 }
 
 function searchBarChanged(event) {
@@ -54,21 +55,24 @@ function compareName(character1, character2) {
   return character1.name.localeCompare(character2.name);
 }
 
-function filterByX(event) {
-  const valueToFilterBy = event.target.value;
-
+function filterByProperty(event) {
+  let valueToFilterBy = event.target.value;
+  if (valueToFilterBy === "The Hobbit") {
+    valueToFilterBy = "hobbit";
+  }
   let newList = posts.filter(filterFunction);
 
   function filterFunction(currentValue) {
-    if (valueToFilterBy === "LoTR" || valueToFilterBy === "The Hobbit") {
-      return currentValue.movie.toLowerCase() === valueToFilterBy.toLowerCase() || currentValue.movie.toLowerCase() === "lotr, hobbit";
+    if (valueToFilterBy === "LoTR" || valueToFilterBy === "hobbit") {
+      return currentValue.movie.toLowerCase().includes(valueToFilterBy.toLowerCase());
+      // return currentValue.movie.toLowerCase().includes(valueToFilterBy.toLowerCase()) || currentValue.movie.toLowerCase().includes("lotr, hobbit");
     } else if (valueToFilterBy === "male" || valueToFilterBy === "female") {
       return currentValue.gender.toLowerCase() === valueToFilterBy;
     } else {
-      return currentValue.race.toLowerCase() === valueToFilterBy.toLowerCase();
+      return currentValue.race.toLowerCase().includes(valueToFilterBy.toLowerCase());
     }
   }
-
+  console.log("newlist", newList);
   showCharactersAll(newList);
 }
 
@@ -83,12 +87,11 @@ function showCharactersAll(array) {
 function showCharacter(character) {
   let age = character.age;
   if (character.age.toLowerCase() === "unknown") {
-    console.log("er vi her?????");
     age = "This character's age is unknown!";
   } else {
     age = "Age: " + character.age + " years old";
   }
-  console.log(age);
+
   const html = /* HTML */ `
     <article class="grid-item">
       <h3>${character.name}</h3>
