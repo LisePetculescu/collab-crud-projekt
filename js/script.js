@@ -37,9 +37,26 @@ function searchBarChanged(event) {
   showCharactersAll(filteredList);
 }
 
-function sortByX(params) {
+function sortByX(event) {
   // If statements for de forskellige parametre
   // showPostsAll()
+  console.log("sorting!!!");
+  let newList = posts;
+  newList.sort(compareNumber);
+
+  function compareNumber(a, b) {
+    let first = a.age;
+    let second = b.age;
+    if (first === "Unknown") {
+      first = 100000000;
+    } else if (second === "Unknown") {
+      second = 100000000;
+    }
+    return first - second;
+  }
+
+  console.log(newList);
+  showCharactersAll(newList);
 }
 
 function checkRace(character) {
