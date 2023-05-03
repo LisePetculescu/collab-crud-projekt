@@ -8,6 +8,8 @@ import { capitalFirstLetter, filterBySearch } from "./helper-functions.js";
 
 // ////////// TILPAS OBJEKTER: MOVIES TIL movie ///////////
 let posts;
+let filteredList
+let sortedList
 
 window.addEventListener("load", start);
 
@@ -17,44 +19,16 @@ async function start() {
   // Opdaterer den globale variabel til posts-arrayet
   getUpdatedFirebase();
 
-  document
-    .querySelector("#input-search")
-    .addEventListener("keyup", searchBarChanged);
-  document
-    .querySelector("#input-search")
-    .addEventListener("search", searchBarChanged);
-  document
-    .querySelector("#form-delete-character")
-    .addEventListener("submit", deleteCharacterYes);
-  document
-    .querySelector("#form-update-character")
-    .addEventListener("submit", updateCharacterYes);
-  document
-    .querySelector("#btn-create-character")
-    .addEventListener("click", () =>
-      document.querySelector("#dialog-create-character").showModal()
-    );
-  document
-    .querySelector("#form-create-character")
-    .addEventListener("submit", createCharacterModal);
-  document
-    .querySelector("#btn-no-update")
-    .addEventListener("click", () =>
-      document.querySelector("#dialog-update-character").close()
-    );
-  document
-    .querySelector("#btn-no-create")
-    .addEventListener("click", () =>
-      document.querySelector("#dialog-create-character").close()
-    );
-  document
-    .querySelector("#btn-no-delete")
-    .addEventListener("click", () =>
-      document.querySelector("#dialog-delete-character").close()
-    );
-  document
-    .querySelector("#filter")
-    .addEventListener("change", filterByProperty);
+  document.querySelector("#input-search").addEventListener("keyup", searchBarChanged);
+  document.querySelector("#input-search").addEventListener("search", searchBarChanged);
+  document.querySelector("#form-delete-character").addEventListener("submit", deleteCharacterYes);
+  document.querySelector("#form-update-character").addEventListener("submit", updateCharacterYes);
+  document.querySelector("#btn-create-character").addEventListener("click", () => document.querySelector("#dialog-create-character").showModal());
+  document.querySelector("#form-create-character").addEventListener("submit", createCharacterModal);
+  document.querySelector("#btn-no-update").addEventListener("click", () => document.querySelector("#dialog-update-character").close());
+  document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-character").close());
+  document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-character").close());
+  document.querySelector("#filter").addEventListener("change", filterByProperty);
   document.querySelector("#sort").addEventListener("change", sortByX);
 }
 
@@ -69,9 +43,10 @@ function sortByX(event) {
   console.log(event);
   console.log(event.target.value);
   let targeted = event.target.value;
-  let sorted = posts;
+  let sorted = filteredList;
 
   if (targeted === "age") {
+    console.log(sorted)
     sorted.sort(compareNumber);
   } else {
     sorted.sort(compareString);
@@ -81,14 +56,6 @@ function sortByX(event) {
     // console.log(character1[targeted]);
     return character1[targeted].localeCompare(character2[targeted]);
   }
-
-  console.log(sorted);
-  showCharactersAll(sorted);
-  // If statements for de forskellige parametre
-  // showPostsAll()
-  console.log("sorting!!!");
-  let newList = posts;
-  newList.sort(compareNumber);
 
   function compareNumber(a, b) {
     let first = a.age;
@@ -101,17 +68,8 @@ function sortByX(event) {
     return first - second;
   }
 
-  console.log(newList);
-  showCharactersAll(newList);
-}
-
-function checkRace(character) {
-  return character.race.toLowerCase() === "human";
-}
-
-function testFilter() {
-  const filteredCharacters = posts.filter(checkRace);
-  console.log(filteredCharacters.length);
+  console.log(sorted);
+  showCharactersAll(sorted);
 }
 
 function filterByProperty(event) {
@@ -119,24 +77,21 @@ function filterByProperty(event) {
   if (valueToFilterBy === "The Hobbit") {
     valueToFilterBy = "hobbit";
   }
-  let newList = posts.filter(filterFunction);
+  filteredList = posts.filter(filterFunction);
+
 
   function filterFunction(currentValue) {
     if (valueToFilterBy === "LoTR" || valueToFilterBy === "hobbit") {
-      return currentValue.movie
-        .toLowerCase()
-        .includes(valueToFilterBy.toLowerCase());
+      return currentValue.movie.toLowerCase().includes(valueToFilterBy.toLowerCase());
       // return currentValue.movie.toLowerCase().includes(valueToFilterBy.toLowerCase()) || currentValue.movie.toLowerCase().includes("lotr, hobbit");
     } else if (valueToFilterBy === "male" || valueToFilterBy === "female") {
       return currentValue.gender.toLowerCase() === valueToFilterBy;
     } else {
-      return currentValue.race
-        .toLowerCase()
-        .includes(valueToFilterBy.toLowerCase());
+      return currentValue.race.toLowerCase().includes(valueToFilterBy.toLowerCase());
     }
   }
-  console.log("newlist", newList);
-  showCharactersAll(newList);
+  console.log("newlist", filteredList);
+  showCharactersAll(filteredList);
 }
 
 function showCharactersAll(array) {
@@ -169,15 +124,11 @@ function showCharacter(character) {
   `;
   // <button id="btn-delete">Delete</button>
   // <button id="btn-update">Update</button>
-  document
-    .querySelector(".grid-container")
-    .insertAdjacentHTML("beforeend", html);
+  document.querySelector(".grid-container").insertAdjacentHTML("beforeend", html);
 
   // document.querySelector(".grid-container article:last-child #btn-delete").addEventListener("click", () => deleteButtonClickedOpenModal(character));
   // document.querySelector(".grid-container article:last-child #btn-update").addEventListener("click", () => updateButtonClicked(character));
-  document
-    .querySelector(".grid-container article:last-child")
-    .addEventListener("click", () => showCharacterModal(character));
+  document.querySelector(".grid-container article:last-child").addEventListener("click", () => showCharacterModal(character));
 }
 
 function showCharacterModal(character) {
@@ -216,17 +167,9 @@ function showCharacterModal(character) {
     </article>
   `;
   document.querySelector("#show-character-modal").innerHTML = html;
-  document
-    .querySelector("#btn-delete")
-    .addEventListener("click", () => deleteButtonClickedOpenModal(character));
-  document
-    .querySelector("#btn-update")
-    .addEventListener("click", () => updateButtonClicked(character));
-  document
-    .querySelector("#btn-close")
-    .addEventListener("click", () =>
-      document.querySelector("#show-character-modal").close()
-    );
+  document.querySelector("#btn-delete").addEventListener("click", () => deleteButtonClickedOpenModal(character));
+  document.querySelector("#btn-update").addEventListener("click", () => updateButtonClicked(character));
+  document.querySelector("#btn-close").addEventListener("click", () => document.querySelector("#show-character-modal").close());
   document.querySelector("#show-character-modal").showModal();
 }
 
@@ -250,11 +193,8 @@ function updateButtonClicked(character) {
 }
 
 function deleteButtonClickedOpenModal(character) {
-  document.querySelector("#dialog-delete-character-title").textContent =
-    character.name;
-  document
-    .querySelector("#form-delete-character")
-    .setAttribute("data-id", character.id);
+  document.querySelector("#dialog-delete-character-title").textContent = character.name;
+  document.querySelector("#form-delete-character").setAttribute("data-id", character.id);
   document.querySelector("#show-character-modal").close();
   document.querySelector("#dialog-delete-character").showModal();
 }
@@ -274,18 +214,7 @@ async function createCharacterModal(event) {
   const family = form.family.value;
   const description = form.description.value;
 
-  const response = await createNewCharacter(
-    name,
-    image,
-    race,
-    age,
-    actor,
-    movie,
-    origin,
-    family,
-    description,
-    gender
-  );
+  const response = await createNewCharacter(name, image, race, age, actor, movie, origin, family, description, gender);
 
   if (response.ok) {
     getUpdatedFirebase();
@@ -312,19 +241,7 @@ async function updateCharacterYes(event) {
 
   const id = form.getAttribute("data-id");
 
-  const response = await updatePost(
-    id,
-    name,
-    image,
-    race,
-    age,
-    gender,
-    actor,
-    movie,
-    origin,
-    family,
-    description
-  );
+  const response = await updatePost(id, name, image, race, age, gender, actor, movie, origin, family, description);
   if (response.ok) {
     console.log(`Updated post ${id}`);
     getUpdatedFirebase();
@@ -346,5 +263,7 @@ async function deleteCharacterYes(event) {
 async function getUpdatedFirebase(params) {
   const result = await getJSON();
   posts = result;
+  filteredList = result
+  sortedList = result
   showCharactersAll(result);
 }
