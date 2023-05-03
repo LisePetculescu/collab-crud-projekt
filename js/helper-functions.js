@@ -12,17 +12,13 @@ function prepareData(listOfObjects) {
 
 function filterBySearch(valueToSearchFor) {
   console.log("posts", posts);
-  return posts.filter((post) => post.name.toLowerCase().includes(valueToSearchFor));
+  return posts.filter(post => post.name.toLowerCase().includes(valueToSearchFor));
   // const filteredList = posts.filter(checkName);
   // function checkName(post) {
   //   const lowerCasePosts = post.name.toLowerCase();
   //   return lowerCasePosts.includes(valueToSearchFor);
   // }
   // return filteredList;
-}
-
-function showCreateCharacterDialog(params) {
-  document.querySelector("#dialog-create-character").showModal();
 }
 
 function capitalFirstLetter(string) {
@@ -32,5 +28,5 @@ function capitalFirstLetter(string) {
   return result;
 }
 
-export { prepareData, capitalFirstLetter, filterBySearch, showCreateCharacterDialog };
+export { prepareData, capitalFirstLetter, filterBySearch };
 // export {prepareData}

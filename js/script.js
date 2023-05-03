@@ -1,7 +1,7 @@
 "use strict";
 
 import { getJSON, updatePost, deletePost, createNewCharacter } from "./HTTP.js";
-import { capitalFirstLetter, showCreateCharacterDialog } from "./helper-functions.js";
+// import { capitalFirstLetter, showCreateCharacterDialog } from "./helper-functions.js";
 //////////////////////////////////////////////////////////////////////
 //////////////////DET ER ULOVLIGT AT ARBEJDE I MAINBRANCH/////////////
 //////////////////////////////////////////////////////////////////////
@@ -21,12 +21,13 @@ async function start() {
   document.querySelector("#input-search").addEventListener("search", searchBarChanged);
   document.querySelector("#form-delete-character").addEventListener("submit", deleteCharacterYes);
   document.querySelector("#form-update-character").addEventListener("submit", updateCharacterYes);
-  document.querySelector("#btn-create-character").addEventListener("click", showCreateCharacterDialog);
+  document.querySelector("#btn-create-character").addEventListener("click", () => document.querySelector("#dialog-create-character").showModal());
   document.querySelector("#form-create-character").addEventListener("submit", createCharacterModal);
   document.querySelector("#btn-no-update").addEventListener("click", () => document.querySelector("#dialog-update-character").close());
   document.querySelector("#btn-no-create").addEventListener("click", () => document.querySelector("#dialog-create-character").close());
   document.querySelector("#btn-no-delete").addEventListener("click", () => document.querySelector("#dialog-delete-character").close());
-  document.querySelector("#filter").addEventListener("change", filterByX);
+  document.querySelector("#filter").addEventListener("change", filterByProperty);
+  document.querySelector("#sort").addEventListener("change", sortByX);
 }
 
 function searchBarChanged(event) {
@@ -54,32 +55,25 @@ function compareName(character1, character2) {
   return character1.name.localeCompare(character2.name);
 }
 
-function filterByX(event) {
-  console.log("filterby EVENT:", event);
-  console.log("filterby EVENT target:", event.target);
-  const valueToFilterBy = event.target.value;
-  console.log("tofilterbyvalue:", valueToFilterBy);
-
+function filterByProperty(event) {
+  let valueToFilterBy = event.target.value;
+  if (valueToFilterBy === "The Hobbit") {
+    valueToFilterBy = "hobbit";
+  }
   let newList = posts.filter(filterFunction);
-  // const filteredList = posts.filter(filterFunction);
 
   function filterFunction(currentValue) {
-    // console.log(currentValue[event]);
-    if (valueToFilterBy === "LoTR" || valueToFilterBy === "theHobbit") {
-      console.log("lotr/hobbit");
-      return currentValue.movie.toLowerCase() === valueToFilterBy;
+    if (valueToFilterBy === "LoTR" || valueToFilterBy === "hobbit") {
+      return currentValue.movie.toLowerCase().includes(valueToFilterBy.toLowerCase());
+      // return currentValue.movie.toLowerCase().includes(valueToFilterBy.toLowerCase()) || currentValue.movie.toLowerCase().includes("lotr, hobbit");
     } else if (valueToFilterBy === "male" || valueToFilterBy === "female") {
-      console.log("gender to sort by");
       return currentValue.gender.toLowerCase() === valueToFilterBy;
     } else {
-      console.log("else: race");
-      console.log(currentValue.race);
-      return currentValue.race.toLowerCase() === valueToFilterBy.toLowerCase();
+      return currentValue.race.toLowerCase().includes(valueToFilterBy.toLowerCase());
     }
   }
-  console.log(newList);
-  // If statements for de forskellige parametre
-  // showPostsAll()
+  console.log("newlist", newList);
+  showCharactersAll(newList);
 }
 
 function showCharactersAll(array) {
@@ -91,12 +85,19 @@ function showCharactersAll(array) {
 }
 
 function showCharacter(character) {
+  let age = character.age;
+  if (character.age.toLowerCase() === "unknown") {
+    age = "This character's age is unknown!";
+  } else {
+    age = "Age: " + character.age + " years old";
+  }
+
   const html = /* HTML */ `
     <article class="grid-item">
       <h3>${character.name}</h3>
       <img src="${character.image}" />
       <p>Race: ${character.race}</p>
-      <p>Age: ${character.age}</p>
+      <p>${age}</p>
       <p>Actor: ${character.actor}</p>
       <div class="btns">
         <button>Show more info</button>
@@ -114,6 +115,14 @@ function showCharacter(character) {
 
 function showCharacterModal(character) {
   console.log(character);
+  let age = character.age;
+  if (character.age.toLowerCase() === "unknown") {
+    console.log("er vi her?????");
+    age = "This character's age is unknown!";
+  } else {
+    age = character.age + " years old";
+  }
+
   // for (const key in character) {
   //   if (typeof character[key] === "string" && key !== "image") {
   //     character[key] = capitalFirstLetter(character[key]);
@@ -126,10 +135,10 @@ function showCharacterModal(character) {
       <h3>${character.name} <button id="btn-close">Back</button></h3>
       <img src="${character.image}" />
       <p>Race: ${character.race}</p>
-      <p>Age: ${character.age}</p>
+      <p>Age: ${age}</p>
       <p>Actor: ${character.actor}</p>
       <p>Gender: ${character.gender}</p>
-      <p>movie:${character.movie}</p>
+      <p>Movie:${character.movie}</p>
       <p>Origin: ${character.origin}</p>
       <p>Family: ${character.family}</p>
       <p>Description: ${character.description}</p>
