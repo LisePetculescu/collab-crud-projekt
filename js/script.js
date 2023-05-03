@@ -169,7 +169,7 @@ function showCharacterModal(character) {
       <p>Age: ${age}</p>
       <p>Actor: ${character.actor}</p>
       <p>Gender: ${character.gender}</p>
-      <p>Movie:${character.movie}</p>
+      <p>Triology: ${character.movie}</p>
       <p>Origin: ${character.origin}</p>
       <p>Family: ${character.family}</p>
       <p>Description: ${character.description}</p>
