@@ -7,9 +7,11 @@ import { capitalFirstLetter, filterBySearch } from "./helper-functions.js";
 //////////////////////////////////////////////////////////////////////
 
 // ////////// TILPAS OBJEKTER: MOVIES TIL movie ///////////
+
+// MAKE GLOBAL VARIABLES - ALL WILL BE POSTS-ARRAYS, FILTERED OR SORTED IN SOME WAY.
 let posts;
-let filteredList
-let sortedList
+let filteredList;
+let searchedList;
 
 window.addEventListener("load", start);
 
@@ -32,34 +34,70 @@ async function start() {
   document.querySelector("#sort").addEventListener("change", sortByX);
 }
 
-function searchBarChanged(event) {
-  console.log(event.target.value);
-  const valueToSearchFor = event.target.value.toLowerCase();
-  const filteredList = filterBySearch(valueToSearchFor, posts);
-  showCharactersAll(filteredList);
+function filterByProperty() {
+  let valueToFilterBy = document.querySelector("#filter").value;
+  // Save the posts array in a local variable to leave the original intact
+  let listToFilter = posts.slice();
+
+  // Change the global variable to a filtered list for future use
+  filteredList = listToFilter.filter(filterFunction);
+
+  function filterFunction(currentValue) {
+    if (valueToFilterBy === "LoTR" || valueToFilterBy === "The Hobbit") {
+      // console.log("valuetofilterby:", valueToFilterBy);
+      return currentValue.movie.toLowerCase().includes(valueToFilterBy.toLowerCase()) || currentValue.movie.toLowerCase().includes("lotr, hobbit");
+    } else if (valueToFilterBy === "male" || valueToFilterBy === "female") {
+      return currentValue.gender.toLowerCase() === valueToFilterBy;
+    } else {
+      // console.log("valuetofilterby:", valueToFilterBy);
+      return currentValue.race.toLowerCase().includes(valueToFilterBy.toLowerCase());
+    }
+  }
+
+  // Call the searchbar function to check for any further filtering
+  searchBarChanged();
 }
 
-function sortByX(event) {
-  console.log(event);
-  console.log(event.target.value);
-  let targeted = event.target.value;
-  let sorted = filteredList;
+function searchBarChanged() {
+  // Cannot use event.target.value since this needs to be callable from both filterByPropery and by the event listener
+  const valueToSearchFor = document.querySelector("#input-search").value;
+  // Same procedure as filterByProperty()
+  const listToFilter = filteredList.slice();
 
-  if (targeted === "age") {
-    console.log(sorted)
-    sorted.sort(compareNumber);
+  //  Further filters the filtered list according to search value and calls sortByX() for a final sorting of the array
+  searchedList = listToFilter.filter((character) => character.name.toLowerCase().includes(valueToSearchFor));
+
+  // Less compact code:
+
+  // searchedList = filterBySearch(valueToSearchFor, posts);
+  // function filterBySearch(valueToSearchFor, posts) {
+  //   console.log("posts", posts);
+  //   return listToFilter.filter((character) => character.name.toLowerCase().includes(valueToSearchFor));
+  // }
+
+  sortByX();
+}
+
+function sortByX() {
+  let filteredListToSort = searchedList.slice();
+  let valueToSortBy = document.querySelector("#sort").value;
+
+  // Sorts the array based on the whether the sort value is a string, number or empty and displays the array through showCharactersAll
+  if (valueToSortBy === "age") {
+    showCharactersAll(filteredListToSort.sort(compareNumber));
+  } else if (valueToSortBy === "default") {
+    showCharactersAll(searchedList);
   } else {
-    sorted.sort(compareString);
+    showCharactersAll(filteredListToSort.sort(compareString));
   }
 
   function compareString(character1, character2) {
-    // console.log(character1[targeted]);
-    return character1[targeted].localeCompare(character2[targeted]);
+    return character1[valueToSortBy].localeCompare(character2[valueToSortBy]);
   }
 
-  function compareNumber(a, b) {
-    let first = a.age;
-    let second = b.age;
+  function compareNumber(character1, character2) {
+    let first = character1.age;
+    let second = character2.age;
     if (first === "Unknown") {
       first = 100000000;
     } else if (second === "Unknown") {
@@ -67,36 +105,11 @@ function sortByX(event) {
     }
     return first - second;
   }
-
-  console.log(sorted);
-  showCharactersAll(sorted);
-}
-
-function filterByProperty(event) {
-  let valueToFilterBy = event.target.value;
-  if (valueToFilterBy === "The Hobbit") {
-    valueToFilterBy = "hobbit";
-  }
-  filteredList = posts.filter(filterFunction);
-
-
-  function filterFunction(currentValue) {
-    if (valueToFilterBy === "LoTR" || valueToFilterBy === "hobbit") {
-      return currentValue.movie.toLowerCase().includes(valueToFilterBy.toLowerCase());
-      // return currentValue.movie.toLowerCase().includes(valueToFilterBy.toLowerCase()) || currentValue.movie.toLowerCase().includes("lotr, hobbit");
-    } else if (valueToFilterBy === "male" || valueToFilterBy === "female") {
-      return currentValue.gender.toLowerCase() === valueToFilterBy;
-    } else {
-      return currentValue.race.toLowerCase().includes(valueToFilterBy.toLowerCase());
-    }
-  }
-  console.log("newlist", filteredList);
-  showCharactersAll(filteredList);
 }
 
 function showCharactersAll(array) {
   document.querySelector(".grid-container").innerHTML = "";
-  console.log(posts);
+
   for (const character of array) {
     showCharacter(character);
   }
@@ -263,7 +276,7 @@ async function deleteCharacterYes(event) {
 async function getUpdatedFirebase(params) {
   const result = await getJSON();
   posts = result;
-  filteredList = result
-  sortedList = result
+  filteredList = result;
+  searchedList = result;
   showCharactersAll(result);
 }
