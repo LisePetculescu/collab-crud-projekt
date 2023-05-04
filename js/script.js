@@ -1,12 +1,11 @@
 "use strict";
 
 import { getJSON, updatePost, deletePost, createNewCharacter } from "./HTTP.js";
-import { capitalFirstLetter, filterBySearch } from "./helper-functions.js";
+import { makeTriologyReadable, makeAgeReadable, makeFamilyReadable, makeOriginReadable } from "./helper-functions.js";
+
 //////////////////////////////////////////////////////////////////////
 //////////////////DET ER ULOVLIGT AT ARBEJDE I MAINBRANCH/////////////
 //////////////////////////////////////////////////////////////////////
-
-// ////////// TILPAS OBJEKTER: MOVIES TIL movie ///////////
 
 // MAKE GLOBAL VARIABLES - ALL WILL BE POSTS-ARRAYS, FILTERED OR SORTED IN SOME WAY.
 let posts;
@@ -21,6 +20,7 @@ async function start() {
   // Opdaterer den globale variabel til posts-arrayet
   getUpdatedFirebase();
 
+  // Event listeners for EVERYTHING
   document.querySelector("#input-search").addEventListener("keyup", searchBarChanged);
   document.querySelector("#input-search").addEventListener("search", searchBarChanged);
   document.querySelector("#form-delete-character").addEventListener("submit", deleteCharacterYes);
@@ -145,22 +145,16 @@ function showCharacter(character) {
 }
 
 function showCharacterModal(character) {
-  console.log(character);
   let age = character.age;
-  if (character.age.toLowerCase() === "unknown") {
-    console.log("er vi her?????");
-    age = "This character's age is unknown!";
-  } else {
-    age = character.age + " years old";
-  }
+  let triology = character.movie;
+  let family = character.family;
+  let origin = character.origin;
 
-  // for (const key in character) {
-  //   if (typeof character[key] === "string" && key !== "image") {
-  //     character[key] = capitalFirstLetter(character[key]);
-  //   }
-  // }
-  // <h3>${capitalFirstLetter(character.name)} <button id="btn-close">Back</button></h3>
-  // <p>Gender: ${capitalFirstLetter(character.gender)}</p>
+  family = makeFamilyReadable(family, character);
+  origin = makeOriginReadable(origin, character);
+  triology = makeTriologyReadable(triology, character);
+  age = makeAgeReadable(age, character);
+
   const html = /* HTML */ `
     <article class="grid-item">
       <h3>${character.name} <button id="btn-close">Back</button></h3>
@@ -169,9 +163,9 @@ function showCharacterModal(character) {
       <p>Age: ${age}</p>
       <p>Actor: ${character.actor}</p>
       <p>Gender: ${character.gender}</p>
-      <p>Triology: ${character.movie}</p>
-      <p>Origin: ${character.origin}</p>
-      <p>Family: ${character.family}</p>
+      <p>Triology: ${triology}</p>
+      <p>Origin: ${origin}</p>
+      <p>Family: ${family}</p>
       <p>Description: ${character.description}</p>
       <div class="btns">
         <button id="btn-delete">Delete</button>
@@ -187,7 +181,6 @@ function showCharacterModal(character) {
 }
 
 function updateButtonClicked(character) {
-  console.log("updateButtonClicked");
   const updateForm = document.querySelector("#form-update-character");
   updateForm.name.value = character.name;
   updateForm.image.value = character.image;
@@ -200,7 +193,6 @@ function updateButtonClicked(character) {
   updateForm.family.value = character.family;
   updateForm.description.value = character.description;
   updateForm.setAttribute("data-id", character.id);
-  console.log("characterid", character.id);
   document.querySelector("#show-character-modal").close();
   document.querySelector("#dialog-update-character").showModal();
 }
