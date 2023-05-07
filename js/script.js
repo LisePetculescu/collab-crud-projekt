@@ -72,6 +72,12 @@ async function start() {
   document
     .querySelector("#btn-yes-delete")
     .addEventListener("click", blurRemoved);
+  document
+    .querySelector("#btn-no-update")
+    .addEventListener("click", blurRemoved);
+  document
+    .querySelector("#btn-no-delete")
+    .addEventListener("click", blurRemoved);
 }
 
 function filterByProperty() {
