@@ -49,6 +49,12 @@
   backdrop-filter: blur(2px);
 }
 
+
+.grid-item:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+}
+
 header {
   background-color: rgba(94, 57, 25, 0.796);
   padding: 1vw;
