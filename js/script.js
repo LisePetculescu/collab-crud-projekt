@@ -131,7 +131,7 @@ function showCharacter(character) {
       <p>${age}</p>
       <p>Actor: ${character.actor}</p>
       <div class="btns">
-        <button>Show more info</button>
+        <button class="buttonAni">Show more info</button>
       </div>
     </article>
   `;
@@ -157,7 +157,9 @@ function showCharacterModal(character) {
 
   const html = /* HTML */ `
     <article class="grid-item">
-      <h3>${character.name} <button id="btn-close">Back</button></h3>
+      <h3>
+        ${character.name} <button id="btn-close" class="buttonAni">Back</button>
+      </h3>
       <img src="${character.image}" />
       <p>Race: ${character.race}</p>
       <p>Age: ${age}</p>
@@ -168,8 +170,8 @@ function showCharacterModal(character) {
       <p>Family: ${family}</p>
       <p>Description: ${character.description}</p>
       <div class="btns">
-        <button id="btn-delete">Delete</button>
-        <button id="btn-update">Update</button>
+        <button id="btn-delete" class="buttonAni">Delete</button>
+        <button id="btn-update" class="buttonAni">Update</button>
       </div>
     </article>
   `;

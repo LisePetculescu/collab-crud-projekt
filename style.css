@@ -118,6 +118,14 @@ button,
   border: 2px solid rgb(99, 59, 25);
 }
 
+.buttonAni:hover {
+  box-shadow: 0px 0px 20px rgba(236, 214, 181, 0.541);
+}
+
+.buttonAni:active {
+  box-shadow: 0px 0px 50px rgb(223, 217, 199);
+}
+
 dialog {
   max-width: 50vw;
   background-color: rgb(127, 76, 32);
@@ -131,3 +139,4 @@ select {
   backdrop-filter: blur(2px);
   border: 2px solid rgb(99, 59, 25);
 }
+
