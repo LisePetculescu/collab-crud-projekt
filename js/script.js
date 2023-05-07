@@ -202,7 +202,7 @@ function showCharacterModal(character) {
   age = makeAgeReadable(age, character);
 
   const html = /* HTML */ `
-    <article class="grid-item">
+    <article class="modal-item">
       <h3>
         ${character.name} <button id="btn-close" class="buttonAni">Back</button>
       </h3>
@@ -233,7 +233,13 @@ function showCharacterModal(character) {
     .addEventListener("click", () =>
       document.querySelector("#show-character-modal").close()
     );
+  document
+    .querySelector("#btn-close")
+    .addEventListener("click", () =>
+      document.querySelector("body").classList.remove("blur")
+    );
   document.querySelector("#show-character-modal").showModal();
+  document.querySelector("body").classList.add("blur");
 }
 
 function updateButtonClicked(character) {

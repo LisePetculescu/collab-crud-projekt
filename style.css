@@ -19,12 +19,18 @@
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr;
   }
+  .modal-item {
+    width: 30vw;
+  }
 }
 
 @media (min-width: 992px) {
   .grid-container,
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .modal-item {
+    width: 30vw;
   }
 }
 
@@ -177,4 +183,8 @@ select {
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.blur {
+  filter: blur(8px);
 }
