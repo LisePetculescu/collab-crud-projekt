@@ -44,10 +44,11 @@
   backdrop-filter: blur(2px);
 }
 
-
 .grid-item:hover {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   transform: translateY(-10px);
+  background-color: rgba(188, 131, 81, 0.695);
+  color: #fbd45f;
 }
 
 header {
@@ -153,4 +154,3 @@ select {
   backdrop-filter: blur(2px);
   border: 2px solid rgb(99, 59, 25);
 }
-
