@@ -65,6 +65,13 @@ async function start() {
     .querySelector("#filter")
     .addEventListener("change", filterByProperty);
   document.querySelector("#sort").addEventListener("change", sortByX);
+
+  document
+    .querySelector("#btn-yes-update")
+    .addEventListener("click", blurRemoved);
+  document
+    .querySelector("#btn-yes-delete")
+    .addEventListener("click", blurRemoved);
 }
 
 function filterByProperty() {
@@ -233,13 +240,9 @@ function showCharacterModal(character) {
     .addEventListener("click", () =>
       document.querySelector("#show-character-modal").close()
     );
-  document
-    .querySelector("#btn-close")
-    .addEventListener("click", () =>
-      document.querySelector("body").classList.remove("blur")
-    );
   document.querySelector("#show-character-modal").showModal();
   document.querySelector("body").classList.add("blur");
+  document.querySelector("#btn-close").addEventListener("click", blurRemoved);
 }
 
 function updateButtonClicked(character) {
@@ -359,4 +362,8 @@ async function getUpdatedFirebase(params) {
   filteredList = result;
   searchedList = result;
   showCharactersAll(result);
+}
+
+function blurRemoved() {
+  document.querySelector("body").classList.remove("blur");
 }
