@@ -28,16 +28,11 @@
   }
 }
 
-@media (min-width: 1300px) {
-  .grid-container,
-  .grid-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
-}
-
 .grid-item img {
   width: 100%;
   border-radius: 1vw;
+  height: 250px;
+  object-fit: cover;
 }
 
 .grid-item {
@@ -58,7 +53,7 @@ header {
 form {
   display: table-caption;
   margin-left: 2vw;
-  padding: 5em;
+  /* padding: 5em; */
 }
 
 .confirm-btn {
@@ -83,12 +78,23 @@ body {
   background-image: url("images/middle earth.jpg");
   font-family: Arial, Helvetica, serif;
   font-style: normal;
+  color: #d5a927;
 }
 
 h1,
 h2,
 h3 {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-family: "lucida handwriting", "lucida console";
+  /* font-family: "Brush Script MT", cursive; */
+  /* font-weight: 300; */
+  /* font-size: xx-large; */
+}
+
+#char {
+  color: rgb(86 54 30);
+  text-shadow: 2px 2px#f0d37c;
 }
 
 section h2 {
@@ -117,6 +123,14 @@ dialog {
   background-color: rgb(127, 76, 32);
   backdrop-filter: blur(2px);
   border: 2px solid rgb(87, 52, 21);
+  color: #d5a927;
+}
+
+.modal-item img {
+  width: 100%;
+  border-radius: 1vw;
+  height: 400px;
+  object-fit: cover;
 }
 
 input,

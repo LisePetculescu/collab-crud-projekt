@@ -162,7 +162,7 @@ function showCharacterModal(character) {
   // <h3>${capitalFirstLetter(character.name)} <button id="btn-close">Back</button></h3>
   // <p>Gender: ${capitalFirstLetter(character.gender)}</p>
   const html = /* HTML */ `
-    <article class="grid-item">
+    <article class="modal-item">
       <h3>${character.name} <button id="btn-close">Back</button></h3>
       <img src="${character.image}" />
       <p>Race: ${character.race}</p>
