@@ -78,6 +78,13 @@ async function start() {
   document
     .querySelector("#btn-no-delete")
     .addEventListener("click", blurRemoved);
+    
+  document.onkeydown = function (evt) {
+    evt = evt || window.event;
+    if (evt.keyCode == 27) {
+      document.querySelector("body").classList.remove("blur");
+    }
+  };
 }
 
 function filterByProperty() {
