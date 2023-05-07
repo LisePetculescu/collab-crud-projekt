@@ -13,7 +13,7 @@
     <header class="header">
       <h1>The Lord of the Rings</h1>
       <h2>Fan Page</h2>
-      <button id="btn-create-character">Create new character</button>
+      <button id="btn-create-character" class="buttonAni">Create new character</button>
       <input type="search" id="input-search" placeholder="Search by name" autocomplete="off" />
       <label for="filter">Filter By:</label>
       <select id="filter" autocomplete="off">
@@ -23,6 +23,7 @@
           <option value="elf">Elf</option>
           <option value="hobbit">Hobbit</option>
           <option value="dwarf">Dwarf</option>
+          <option value="maia">Maia</option>
         </optgroup>
         <optgroup label="Triology.">
           <option value="LoTR">Lord Of The Rings</option>
@@ -56,59 +57,96 @@
         <h2>Create new character</h2>
         <form id="form-create-character">
           <label for="name">Name:</label>
-          <input id="name" type="text" name="name" placeholder="New name here" />
+          <input id="name" type="text" name="name" placeholder="Name of the character" required maxlength="50" />
           <label for="image">Image:</label>
-          <input id="image" type="url" name="image" placeholder="Image URL here" />
-          <label for="race">Race:</label>
-          <input id="race" type="text" name="race" placeholder="New race here" />
-          <label for="age">Age:</label>
-          <input id="age" type="number" name="age" placeholder="New age here" autocomplete="off" />
-          <label for="gender">Gender:</label>
-          <input id="gender" type="text" name="gender" placeholder="New gender here" />
+          <input id="image" type="url" name="image" placeholder="Image URL" required maxlength="50" />
           <label for="actor">Actor:</label>
-          <input id="actor" type="text" name="actor" placeholder="New actor here" />
+          <input id="actor" type="text" name="actor" placeholder="Name of actor" required maxlength="50" />
+          <label for="race">Race:</label>
+          <br />
+          <select name="race" id="race" autocomplete="off" required>
+            <option id="testtest" value="">Pick a race:</option>
+            <option value="Human">Human</option>
+            <option value="Elf">Elf</option>
+            <option value="Hobbit">Hobbit</option>
+            <option value="Dwarf">Dwarf</option>
+            <option value="Maia">Maia</option>
+          </select>
+          <br />
+          <label for="gender">Gender:</label>
+          <br />
+          <select name="gender" id="gender" autocomplete="off" required>
+            <option value="">Choose gender:</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <br />
           <label for="movie">Triology:</label>
-          <input id="movie" type="text" name="movie" placeholder="New movie here" />
+          <select id="movie" name="movie" autocomplete="off" required>
+            <option value="">Seen in:</option>
+            <option value="LoTR">Lord of The Rings</option>
+            <option value="The Hobbit">The Hobbit</option>
+            <option value="LoTR, hobbit">Both</option>
+          </select>
+          <label for="age">Age:</label>
+          <input id="age" type="number" name="age" placeholder="Age in numbers" required maxlength="50" />
           <label for="origin">Origin:</label>
-          <input id="origin" type="text" name="origin" placeholder="New origin here" />
+          <input id="origin" type="text" name="origin" placeholder="Place of origin" maxlength="50" />
           <label for="family">Family:</label>
-          <input id="family" type="text" name="family" placeholder="New family here" />
+          <input id="family" type="text" name="family" placeholder="Character's family name" maxlength="50" />
           <label for="description">Desciption:</label>
-          <input id="description" type="text" name="description" placeholder="New description here here" />
+          <input id="description" type="text" name="description" placeholder="Free text description" maxlength="300" required />
           <br />
           <br />
-          <input type="submit" class="float" id="btn-submit" value="Create Character" />
-          <input type="button" class="float" id="btn-no-create" value="Back" />
-          <!-- <button id="btn-create">Create character</button> -->
+          <input type="submit" class="float buttonAni" id="btn-submit" value="Create Character" />
+          <input type="button" class="float buttonAni" id="btn-no-create" value="Back" />
         </form>
       </dialog>
 
       <dialog id="dialog-update-character">
         <h2>Update character</h2>
         <form id="form-update-character">
-          <label for="name-update">Name:</label>
-          <input id="name-update" type="text" name="name" placeholder="Update name here" />
+          <label for="name-update" required maxlength="50">Name:</label>
+          <input id="name-update" type="text" name="name" placeholder="Name of the character" required maxlength="50" />
           <label for="image-update">Image:</label>
-          <input id="image-update" type="url" name="image" placeholder="Update Image URL here" />
-          <label for="race-update">Race:</label>
-          <input id="race-update" type="text" name="race" placeholder="Update race here" />
+          <input id="image-update" type="url" name="image" placeholder="Image URL" required maxlength="50" />
           <label for="age-update">Age:</label>
-          <input id="age-update" type="number" name="age" placeholder="Update age here" />
-          <label for="gender-update">Gender:</label>
-          <input id="gender-update" type="text" name="gender" placeholder="Update gender here" />
-          <label for="actor-update">Actor:</label>
-          <input id="actor-update" type="text" name="actor" placeholder="Update actor here" />
-          <label for="movie-update">Triology:</label>
-          <input id="movie-update" type="text" name="movie" placeholder="Update movie here" />
-          <label for="origin-update">Origin:</label>
-          <input id="origin-update" type="text" name="origin" placeholder="Update origin here" />
-          <label for="family-update">Family:</label>
-          <input id="family-update" type="text" name="family" placeholder="Update family here" />
-          <label for="description-update">Description:</label>
-          <input id="description-update" type="text" name="description" placeholder="Update description here here" />
+          <input id="age-update" type="number" name="age" placeholder="Age in numbers" required maxlength="50" />
+          <label for="race-update">Race:</label><br />
+          <select name="race" id="race-update" autocomplete="off" required maxlength="50">
+            <option value="Human">Human</option>
+            <option value="Elf">Elf</option>
+            <option value="Hobbit">Hobbit</option>
+            <option value="Dwarf">Dwarf</option>
+            <option value="Maia">Maia</option>
+          </select>
+          <br />
+          <!-- <input id="race-update" type="text" name="race" placeholder="Name of race" required maxlength="50" /> -->
 
-          <button id="btn-yes-update" class="confirm-btn">Update Character</button>
-          <input type="button" id="btn-no-update" class="confirm-btn" value="Cancel" />
+          <label for="gender">Gender:</label>
+          <br />
+          <select name="gender" id="gender-update" required maxlength="50">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <br />
+          <label for="movie">Triology:</label>
+          <select id="movie-update" name="movie" required maxlength="50">
+            <option value="LoTR">Lord of The Rings</option>
+            <option value="The Hobbit">The Hobbit</option>
+            <option value="LoTR, Hobbit">Both</option>
+          </select>
+          <label for="actor-update">Actor:</label>
+          <input id="actor-update" type="text" name="actor" placeholder="Update actor here" required maxlength="50" />
+          <label for="origin-update">Origin:</label>
+          <input id="origin-update" type="text" name="origin" placeholder="Update origin here" required maxlength="50" />
+          <label for="family-update">Family:</label>
+          <input id="family-update" type="text" name="family" placeholder="Update family here" required maxlength="50" />
+          <label for="description-update">Description:</label>
+          <input id="description-update" type="text" name="description" placeholder="Update description here here" required maxlength="300" />
+
+          <button id="btn-yes-update" class="confirm-btn buttonAni">Update Character</button>
+          <input type="button" id="btn-no-update" class="confirm-btn buttonAni" value="Cancel" />
           <!-- <button>Update character</button> -->
         </form>
       </dialog>
@@ -117,8 +155,8 @@
         <h2>Do you want to delete this character?</h2>
         <p id="dialog-delete-character-title">Title of character</p>
         <form method="dialog" id="form-delete-character">
-          <input type="button" value="No" class="btn-cancel" id="btn-no-delete" />
-          <input type="submit" value="Yes" id="btn-yes-delete" />
+          <input type="button" value="No" class="btn-cancel buttonAni" id="btn-no-delete" />
+          <input type="submit" value="Yes" id="btn-yes-delete" class="buttonAni" />
         </form>
       </dialog>
 
