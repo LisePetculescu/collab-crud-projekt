@@ -1,13 +1,10 @@
 import { prepareData } from "./helper-functions.js";
 
-const lotrDatabase =
-  "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app";
+const lotrDatabase = "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app";
 
 async function getJSON() {
   // Fetcher og laver om til javascript objekt
-  const fireBaseObjects = await fetch(
-    "https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/posts.json"
-  );
+  const fireBaseObjects = await fetch("https://lotr-database-crud-default-rtdb.europe-west1.firebasedatabase.app/posts.json");
   const fetchedObjectes = await fireBaseObjects.json();
 
   // Laver objekt-inde-i-objekt-listen om til et egentligt array
@@ -16,18 +13,7 @@ async function getJSON() {
   return objectsToArray;
 }
 
-async function createNewCharacter(
-  name,
-  image,
-  race,
-  age,
-  actor,
-  movie,
-  origin,
-  family,
-  description,
-  gender
-) {
+async function createNewCharacter(name, image, race, age, actor, movie, origin, family, description, gender) {
   const newCharacter = {
     name,
     image,
@@ -59,19 +45,7 @@ async function createNewCharacter(
 }
 
 // HTTP Method: PUT
-async function updatePost(
-  id,
-  name,
-  image,
-  race,
-  age,
-  gender,
-  actor,
-  movie,
-  origin,
-  family,
-  description
-) {
+async function updatePost(id, name, image, race, age, gender, actor, movie, origin, family, description) {
   // Variabel med properties der skal opdateres
   const characterToUpdate = {
     name,
