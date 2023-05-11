@@ -13,15 +13,8 @@
     <header class="header">
       <h1>The Lord of the Rings</h1>
       <h2>Fan Page</h2>
-      <button id="btn-create-character" class="buttonAni">
-        Create new character
-      </button>
-      <input
-        type="search"
-        id="input-search"
-        placeholder="Search by name"
-        autocomplete="off"
-      />
+      <button id="btn-create-character" class="buttonAni">Create new character</button>
+      <input type="search" id="input-search" placeholder="Search by name" autocomplete="off" />
       <label for="filter">Filter By:</label>
       <select id="filter" autocomplete="off">
         <option></option>
@@ -64,32 +57,11 @@
         <h2>Create new character</h2>
         <form id="form-create-character">
           <label for="name">Name:</label>
-          <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="Name of the character"
-            required
-            maxlength="50"
-          />
+          <input id="name" type="text" name="name" placeholder="Name of the character" required maxlength="50" />
           <label for="image">Image:</label>
-          <input
-            id="image"
-            type="url"
-            name="image"
-            placeholder="Image URL"
-            required
-            maxlength="50"
-          />
+          <input id="image" type="url" name="image" placeholder="Image URL" required maxlength="50" />
           <label for="actor">Actor:</label>
-          <input
-            id="actor"
-            type="text"
-            name="actor"
-            placeholder="Name of actor"
-            required
-            maxlength="50"
-          />
+          <input id="actor" type="text" name="actor" placeholder="Name of actor" required maxlength="50" />
           <label for="race">Race:</label>
           <br />
           <select name="race" id="race" autocomplete="off" required>
@@ -118,53 +90,17 @@
           </select>
           <br />
           <label for="age">Age:</label>
-          <input
-            id="age"
-            type="number"
-            name="age"
-            placeholder="Age in numbers"
-            required
-            maxlength="50"
-          />
+          <input id="age" type="number" name="age" placeholder="Age in numbers" required maxlength="50" />
           <label for="origin">Origin:</label>
-          <input
-            id="origin"
-            type="text"
-            name="origin"
-            placeholder="Place of origin"
-            maxlength="50"
-          />
+          <input id="origin" type="text" name="origin" placeholder="Place of origin" maxlength="50" />
           <label for="family">Family:</label>
-          <input
-            id="family"
-            type="text"
-            name="family"
-            placeholder="Character's family name"
-            maxlength="50"
-          />
+          <input id="family" type="text" name="family" placeholder="Character's family name" maxlength="50" />
           <label for="description">Desciption:</label>
-          <input
-            id="description"
-            type="text"
-            name="description"
-            placeholder="Free text description"
-            maxlength="300"
-            required
-          />
+          <input id="description" type="text" name="description" placeholder="Free text description" maxlength="300" required />
           <br />
           <br />
-          <input
-            type="submit"
-            class="float buttonAni"
-            id="btn-submit"
-            value="Create Character"
-          />
-          <input
-            type="button"
-            class="float buttonAni"
-            id="btn-no-create"
-            value="Back"
-          />
+          <input type="submit" class="float buttonAni" id="btn-submit" value="Create Character" />
+          <input type="button" class="float buttonAni" id="btn-no-create" value="Back" />
         </form>
       </dialog>
 
@@ -172,40 +108,13 @@
         <h2>Update character</h2>
         <form id="form-update-character">
           <label for="name-update" required maxlength="50">Name:</label>
-          <input
-            id="name-update"
-            type="text"
-            name="name"
-            placeholder="Name of the character"
-            required
-            maxlength="50"
-          />
+          <input id="name-update" type="text" name="name" placeholder="Name of the character" required maxlength="50" />
           <label for="image-update">Image:</label>
-          <input
-            id="image-update"
-            type="url"
-            name="image"
-            placeholder="Image URL"
-            required
-            maxlength="50"
-          />
+          <input id="image-update" type="url" name="image" placeholder="Image URL" required maxlength="50" />
           <label for="age-update">Age:</label>
-          <input
-            id="age-update"
-            type="number"
-            name="age"
-            placeholder="Age in numbers"
-            required
-            maxlength="50"
-          />
+          <input id="age-update" type="number" name="age" placeholder="Age in numbers" required maxlength="50" />
           <label for="race-update">Race:</label><br />
-          <select
-            name="race"
-            id="race-update"
-            autocomplete="off"
-            required
-            maxlength="50"
-          >
+          <select name="race" id="race-update" autocomplete="off" required maxlength="50">
             <option value="Human">Human</option>
             <option value="Elf">Elf</option>
             <option value="Hobbit">Hobbit</option>
@@ -229,51 +138,16 @@
             <option value="LoTR, Hobbit">Both</option>
           </select>
           <label for="actor-update">Actor:</label>
-          <input
-            id="actor-update"
-            type="text"
-            name="actor"
-            placeholder="Update actor here"
-            required
-            maxlength="50"
-          />
+          <input id="actor-update" type="text" name="actor" placeholder="Update actor here" required maxlength="50" />
           <label for="origin-update">Origin:</label>
-          <input
-            id="origin-update"
-            type="text"
-            name="origin"
-            placeholder="Update origin here"
-            required
-            maxlength="50"
-          />
+          <input id="origin-update" type="text" name="origin" placeholder="Update origin here" required maxlength="50" />
           <label for="family-update">Family:</label>
-          <input
-            id="family-update"
-            type="text"
-            name="family"
-            placeholder="Update family here"
-            required
-            maxlength="50"
-          />
+          <input id="family-update" type="text" name="family" placeholder="Update family here" required maxlength="50" />
           <label for="description-update">Description:</label>
-          <input
-            id="description-update"
-            type="text"
-            name="description"
-            placeholder="Update description here here"
-            required
-            maxlength="300"
-          />
+          <input id="description-update" type="text" name="description" placeholder="Update description here here" required maxlength="300" />
 
-          <button id="btn-yes-update" class="confirm-btn buttonAni">
-            Update Character
-          </button>
-          <input
-            type="button"
-            id="btn-no-update"
-            class="confirm-btn buttonAni"
-            value="Cancel"
-          />
+          <button id="btn-yes-update" class="confirm-btn buttonAni">Update Character</button>
+          <input type="button" id="btn-no-update" class="confirm-btn buttonAni" value="Cancel" />
           <!-- <button>Update character</button> -->
         </form>
       </dialog>
@@ -282,18 +156,8 @@
         <h2>Do you want to delete this character?</h2>
         <p id="dialog-delete-character-title">Title of character</p>
         <form method="dialog" id="form-delete-character">
-          <input
-            type="button"
-            value="No"
-            class="btn-cancel buttonAni"
-            id="btn-no-delete"
-          />
-          <input
-            type="submit"
-            value="Yes"
-            id="btn-yes-delete"
-            class="buttonAni"
-          />
+          <input type="button" value="No" class="btn-cancel buttonAni" id="btn-no-delete" />
+          <input type="submit" value="Yes" id="btn-yes-delete" class="buttonAni" />
         </form>
       </dialog>
 
